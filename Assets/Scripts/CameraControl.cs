@@ -10,6 +10,7 @@ public class CameraControl : MonoBehaviour
     private float xRotation = 0f;
     private bool isCameraLocked = false;
     private Transform lockedTarget;
+    private Quaternion targetRotation;
 
     private void Start()
     {
@@ -35,16 +36,16 @@ public class CameraControl : MonoBehaviour
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
         // Apply the rotation to the camera
-        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        targetRotation = Quaternion.Euler(xRotation, transform.localRotation.eulerAngles.y, transform.localRotation.eulerAngles.z);
     }
 
     private void HandleCameraLock()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Mouse1))
         {
             LockOnToNearestCollectible();
         }
-        else if (Input.GetKeyUp(KeyCode.Q))
+        else if (Input.GetKeyUp(KeyCode.Mouse1))
         {
             UnlockCamera();
         }
@@ -52,6 +53,11 @@ public class CameraControl : MonoBehaviour
         if (isCameraLocked && lockedTarget != null)
         {
             transform.LookAt(lockedTarget);
+        }
+        else
+        {
+            // Keep player looking in the direction of the orb
+            transform.localRotation = Quaternion.Lerp(transform.localRotation, targetRotation, Time.deltaTime * 10f);
         }
     }
 

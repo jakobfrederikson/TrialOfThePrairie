@@ -9,6 +9,9 @@ public class CharacterController : MonoBehaviour
     private Rigidbody rb;
     private bool isSprinting;
 
+    public Transform movementDirectionTransform;
+    public Transform cameraTransform;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -34,8 +37,8 @@ public class CharacterController : MonoBehaviour
         Vector3 movement = new Vector3(moveHorizontal, 0f, moveVertical);
         movement.Normalize(); // Ensure consistent movement speed in all directions
 
-        // Convert movement input from local space to world space based on camera direction
-        Vector3 moveDirection = Camera.main.transform.TransformDirection(movement);
+        // Calculate the movement direction based on the movement transform and camera's forward direction
+        Vector3 moveDirection = (movementDirectionTransform.forward * movement.z + movementDirectionTransform.right * movement.x).normalized;
         moveDirection.y = 0f; // Ignore vertical movement
 
         // Apply movement speed
@@ -46,9 +49,14 @@ public class CharacterController : MonoBehaviour
             moveDirection *= sprintSpeedMultiplier;
         }
 
+        // Rotate the movement direction based on the camera's forward direction
+        Quaternion cameraRotation = Quaternion.Euler(0f, cameraTransform.eulerAngles.y, 0f);
+        moveDirection = cameraRotation * moveDirection;
+
         // Move the Rigidbody
         rb.velocity = new Vector3(moveDirection.x, rb.velocity.y, moveDirection.z);
     }
+
 
     private void HandleSprint()
     {
