@@ -21,17 +21,20 @@ public class CameraControl : MonoBehaviour
 
     private void HandleRotation()
     {
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
+        if (!LockToOrb.isLockedOn)
+        {
+            float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
+            float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 
-        // Calculate vertical rotation for the camera
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+            // Calculate vertical rotation for the camera
+            xRotation -= mouseY;
+            xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-        // Apply the rotation to the camera
-        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+            // Apply the rotation to the camera
+            transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
 
-        // Rotate the player body horizontally based on mouse X movement
-        playerBody.Rotate(Vector3.up * mouseX);
+            // Rotate the player body horizontally based on mouse X movement
+            playerBody.Rotate(Vector3.up * mouseX);
+        }      
     }
 }
