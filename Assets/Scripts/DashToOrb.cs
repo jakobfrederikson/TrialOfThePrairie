@@ -20,7 +20,7 @@ public class DashToOrb : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 Vector3 dashDirection = cameraTransform.forward;
-                rb.AddForce(dashDirection * dashForce, ForceMode.Impulse);
+                rb.velocity = new Vector3(Input.GetAxis("Horizontal") * dashForce * Time.deltaTime, rb.velocity.y, 0);
             }            
         }
     }
