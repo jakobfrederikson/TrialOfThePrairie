@@ -5,6 +5,7 @@ using UnityEngine;
 public class LockToOrb : MonoBehaviour
 {
     public static bool isLockedOn;
+
     private bool isCameraLocked = false;
     private Transform lockedTarget;
     private Ray ray;

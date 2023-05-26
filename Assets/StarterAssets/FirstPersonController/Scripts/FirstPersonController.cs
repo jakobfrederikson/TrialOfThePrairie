@@ -132,11 +132,6 @@ namespace StarterAssets
 
 		private void CameraRotation()
 		{
-			if (Input.GetMouseButtonDown(0))
-			{
-				Debug.Log("tesT");
-			}
-
 			// if there is an input
 			if (_input.look.sqrMagnitude >= _threshold)
 			{
