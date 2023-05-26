@@ -6,6 +6,9 @@ public class LockToOrb : MonoBehaviour
 {
     public static bool isLockedOn;
 
+    public Transform capsuleTransform;
+    public Transform cameraTransform;
+
     private bool isCameraLocked = false;
     private Transform lockedTarget;
     private Ray ray;
