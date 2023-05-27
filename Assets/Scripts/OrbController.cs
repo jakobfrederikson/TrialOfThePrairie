@@ -9,7 +9,6 @@ public class OrbController : MonoBehaviour
         // Check if the player entered orb collider
         if (other.tag == "Player")
         {
-            Debug.Log("Hello!");
             // Destroy the orb after collision
             Destroy(gameObject);
         }
