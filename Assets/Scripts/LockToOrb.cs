@@ -7,7 +7,8 @@ public class LockToOrb : MonoBehaviour
     public static bool isLockedOn;
 
     public Transform capsuleTransform;
-    public Transform cameraTransform;
+    public Transform mainCamera;
+    public Transform virtualCameraTransform;
 
     private bool isCameraLocked = false;
     private Transform lockedTarget;
@@ -35,12 +36,12 @@ public class LockToOrb : MonoBehaviour
         if (isCameraLocked && lockedTarget != null)
         {
             Debug.Log("Locking on to target");
-            Quaternion targetRotation = Quaternion.LookRotation(lockedTarget.position - transform.position, Vector3.up);
             Vector3 eulerRotation = lockedTarget.eulerAngles;
             eulerRotation.x = 0f;
             eulerRotation.y = 0f;
             capsuleTransform.rotation = Quaternion.Euler(eulerRotation);
-            cameraTransform.LookAt(lockedTarget);
+            virtualCameraTransform.LookAt(lockedTarget);
+            mainCamera = virtualCameraTransform;
         }
     }
 
