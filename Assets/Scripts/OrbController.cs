@@ -6,6 +6,12 @@ public class OrbController : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Hello!");
+        // Check if the player entered orb collider
+        if (other.tag == "Player")
+        {
+            Debug.Log("Hello!");
+            // Destroy the orb after collision
+            Destroy(gameObject);
+        }
     }
 }

@@ -4,17 +4,20 @@ using UnityEngine;
 
 public class DashToOrb : MonoBehaviour
 {
-    [SerializeField] 
-    float dashTime = 0.3f;
-
     [SerializeField]
-    float dashForce = 10f;
+    private float dashTime = 0.3f;
+    [SerializeField]
+    private float dashForce = 10f;
+    [SerializeField]
+    private Transform virtualCameraTransform;
+    private CharacterController characterController;
 
     private LockToOrb lockToOrbScript;
 
     private void Start()
     {
         lockToOrbScript = GetComponent<LockToOrb>();
+        characterController = GetComponent<CharacterController>();
     }
 
     private void Update()
@@ -22,7 +25,7 @@ public class DashToOrb : MonoBehaviour
         if (lockToOrbScript.lockedTarget != null)
         {
             if (Input.GetMouseButtonDown(0))
-            {
+            {          
                 StartCoroutine(DashCoroutine());
             }            
         }
@@ -30,11 +33,17 @@ public class DashToOrb : MonoBehaviour
 
     private IEnumerator DashCoroutine()
     {
-
         float startTime = Time.time;
-        while (Time.time < startTime + dashTime)
+        while (Time.time < startTime + dashTime && lockToOrbScript.lockedTarget != null)
         {
-            transform.position = Vector3.MoveTowards(transform.position, lockToOrbScript.lockedTarget.position, dashForce * Time.deltaTime);
+            // Find the direction from the orb to the players camera
+            Vector3 direction = (lockToOrbScript.lockedTarget.position - virtualCameraTransform.position).normalized;
+
+            // Apply force to the direction
+            Vector3 dashVelocity = direction * dashForce;
+
+            // Make the character move
+            characterController.Move(dashVelocity * Time.deltaTime);
             yield return null;
         }
     }

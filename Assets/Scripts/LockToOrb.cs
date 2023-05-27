@@ -11,6 +11,7 @@ public class LockToOrb : MonoBehaviour
 
     private bool isCameraLocked = false;
     private Transform _lockedTarget;
+    [HideInInspector]
     public Transform lockedTarget;
     private Ray ray;
     private RaycastHit hit;
@@ -40,10 +41,6 @@ public class LockToOrb : MonoBehaviour
 
         if (isCameraLocked && _lockedTarget != null)
         {
-            //Debug.Log("Locking on to target");
-
-            // This lets the player lock on to the target, but now it's slightly off-centre.
-
             // Calculate the desired look-at position
             Vector3 lookAtPosition = new Vector3(_lockedTarget.position.x, characterController.transform.position.y, _lockedTarget.position.z);
 
@@ -52,10 +49,6 @@ public class LockToOrb : MonoBehaviour
 
             // Make the virtual camera transform look at the target
             virtualCameraTransform.LookAt(_lockedTarget);
-
-            // Old code that worked pretty much just the same
-            //characterController.LookAt(new Vector3(lockedTarget.position.x, characterController.position.y, lockedTarget.position.z));
-            //virtualCameraTransform.LookAt(lockedTarget);
         }
     }
 
