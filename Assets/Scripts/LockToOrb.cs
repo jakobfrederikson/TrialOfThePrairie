@@ -7,8 +7,6 @@ public class LockToOrb : MonoBehaviour
     public static bool isLockedOn;
 
     public Transform characterController;
-    public Transform capsuleTransform;
-    public Transform mainCamera;
     public Transform virtualCameraTransform;
 
     private bool isCameraLocked = false;
@@ -38,10 +36,19 @@ public class LockToOrb : MonoBehaviour
         {
             Debug.Log("Locking on to target");
 
-            // Moves everything in the direction of the target, but is the right idea
-            characterController.LookAt(new Vector3(lockedTarget.position.x, characterController.position.y, lockedTarget.position.z));
+            // This lets the player lock on to the target, but now it's slightly off-centre.
 
+            // Calculate the desired look-at position
+            Vector3 lookAtPosition = new Vector3(lockedTarget.position.x, characterController.transform.position.y, lockedTarget.position.z);
+
+            // Make the character controller look at the target
+            characterController.transform.LookAt(lookAtPosition);
+
+            // Make the virtual camera transform look at the target
             virtualCameraTransform.LookAt(lockedTarget);
+
+            //characterController.LookAt(new Vector3(lockedTarget.position.x, characterController.position.y, lockedTarget.position.z));
+            //virtualCameraTransform.LookAt(lockedTarget);
         }
     }
 
