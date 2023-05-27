@@ -40,7 +40,7 @@ public class LockToOrb : MonoBehaviour
 
         if (isCameraLocked && _lockedTarget != null)
         {
-            Debug.Log("Locking on to target");
+            //Debug.Log("Locking on to target");
 
             // This lets the player lock on to the target, but now it's slightly off-centre.
 

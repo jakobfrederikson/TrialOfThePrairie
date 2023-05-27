@@ -379,8 +379,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3a3ce4e8a343a544bbe04b34a0b5529, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dashTime: 5
-  dashForce: 10
+  dashTime: 0.3
+  dashForce: 100
 --- !u!1001 &949330604
 PrefabInstance:
   m_ObjectHideFlags: 0
