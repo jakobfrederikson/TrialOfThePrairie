@@ -341,11 +341,6 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
---- !u!4 &754367936 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 9005220659476430818, guid: 2d3a85ecde41a8246a79669975912b74, type: 3}
-  m_PrefabInstance: {fileID: 949330604}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &875863102 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8616685848737228372, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
@@ -364,15 +359,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterController: {fileID: 875863115}
-  capsuleTransform: {fileID: 1842964953}
-  mainCamera: {fileID: 754367936}
   virtualCameraTransform: {fileID: 1101046632}
+  lockedTarget: {fileID: 0}
   raycastDistance: 10
 --- !u!4 &875863115 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8997996947095583982, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
   m_PrefabInstance: {fileID: 1525018775}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &875863116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 875863102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3a3ce4e8a343a544bbe04b34a0b5529, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dashTime: 5
+  dashForce: 10
 --- !u!1001 &949330604
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -883,11 +891,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
---- !u!4 &1842964953 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5393215578589016641, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
-  m_PrefabInstance: {fileID: 1525018775}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1968626015
 GameObject:
   m_ObjectHideFlags: 0

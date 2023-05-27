@@ -4,24 +4,38 @@ using UnityEngine;
 
 public class DashToOrb : MonoBehaviour
 {
-    private Rigidbody rb;
-    public float dashForce = 10f;
-    public Transform cameraTransform;
+    [SerializeField] 
+    float dashTime = 0.3f;
+
+    [SerializeField]
+    float dashForce = 10f;
+
+    private LockToOrb lockToOrbScript;
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        lockToOrbScript = GetComponent<LockToOrb>();
     }
 
     private void Update()
     {
-        if (LockToOrb.isLockedOn)
+        if (lockToOrbScript.lockedTarget != null)
         {
             if (Input.GetMouseButtonDown(0))
             {
-                Vector3 dashDirection = cameraTransform.forward;
-                rb.velocity = new Vector3(Input.GetAxis("Horizontal") * dashForce * Time.deltaTime, rb.velocity.y, 0);
+                StartCoroutine(DashCoroutine());
             }            
+        }
+    }
+
+    private IEnumerator DashCoroutine()
+    {
+
+        float startTime = Time.time;
+        while (Time.time < startTime + dashTime)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, lockToOrbScript.lockedTarget.position, dashForce * Time.deltaTime);
+            yield return null;
         }
     }
 }

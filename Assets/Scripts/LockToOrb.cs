@@ -10,7 +10,8 @@ public class LockToOrb : MonoBehaviour
     public Transform virtualCameraTransform;
 
     private bool isCameraLocked = false;
-    private Transform lockedTarget;
+    private Transform _lockedTarget;
+    public Transform lockedTarget;
     private Ray ray;
     private RaycastHit hit;
 
@@ -30,23 +31,29 @@ public class LockToOrb : MonoBehaviour
         else if (Input.GetKeyUp(KeyCode.Mouse1))
         {
             UnlockCamera();
+
+            if (_lockedTarget == null)
+            {
+                lockedTarget = null;
+            }
         }
 
-        if (isCameraLocked && lockedTarget != null)
+        if (isCameraLocked && _lockedTarget != null)
         {
             Debug.Log("Locking on to target");
 
             // This lets the player lock on to the target, but now it's slightly off-centre.
 
             // Calculate the desired look-at position
-            Vector3 lookAtPosition = new Vector3(lockedTarget.position.x, characterController.transform.position.y, lockedTarget.position.z);
+            Vector3 lookAtPosition = new Vector3(_lockedTarget.position.x, characterController.transform.position.y, _lockedTarget.position.z);
 
             // Make the character controller look at the target
             characterController.transform.LookAt(lookAtPosition);
 
             // Make the virtual camera transform look at the target
-            virtualCameraTransform.LookAt(lockedTarget);
+            virtualCameraTransform.LookAt(_lockedTarget);
 
+            // Old code that worked pretty much just the same
             //characterController.LookAt(new Vector3(lockedTarget.position.x, characterController.position.y, lockedTarget.position.z));
             //virtualCameraTransform.LookAt(lockedTarget);
         }
@@ -61,8 +68,13 @@ public class LockToOrb : MonoBehaviour
             {
                 isLockedOn = true;
                 isCameraLocked = true;
-                lockedTarget = hit.transform;
+                _lockedTarget = hit.transform;
             }
+        }
+
+        if (_lockedTarget != null)
+        {
+            lockedTarget = _lockedTarget;
         }
     }
 
@@ -70,6 +82,6 @@ public class LockToOrb : MonoBehaviour
     {
         isLockedOn = false;
         isCameraLocked = false;
-        lockedTarget = null;
+        _lockedTarget = null;
     }
 }

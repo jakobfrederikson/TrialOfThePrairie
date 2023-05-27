@@ -65,6 +65,9 @@ namespace StarterAssets
 		private float _jumpTimeoutDelta;
 		private float _fallTimeoutDelta;
 
+		// scripts
+		LockToOrb _lockToOrbScript;
+
 	
 #if ENABLE_INPUT_SYSTEM
 		private PlayerInput _playerInput;
@@ -98,6 +101,7 @@ namespace StarterAssets
 
 		private void Start()
 		{
+			_lockToOrbScript = GetComponent<LockToOrb>();
 			_controller = GetComponent<CharacterController>();
 			_input = GetComponent<StarterAssetsInputs>();
 #if ENABLE_INPUT_SYSTEM
@@ -134,7 +138,7 @@ namespace StarterAssets
 		{
 
 			// if there is an input
-			if (!LockToOrb.isLockedOn && _input.look.sqrMagnitude >= _threshold)
+			if (_lockToOrbScript.lockedTarget == null && _input.look.sqrMagnitude >= _threshold)
 			{
 				//Don't multiply mouse input by Time.deltaTime
 				float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
