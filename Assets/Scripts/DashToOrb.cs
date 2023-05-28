@@ -4,14 +4,10 @@ using UnityEngine;
 
 public class DashToOrb : MonoBehaviour
 {
-    [SerializeField]
-    private float dashTime = 0.3f;
-    [SerializeField]
-    private float dashForce = 10f;
-    [SerializeField]
-    private Transform virtualCameraTransform;
+    [SerializeField] private float dashTime = 0.3f;
+    [SerializeField] private float dashForce = 10f;
+    [SerializeField] private Transform virtualCameraTransform;
     private CharacterController characterController;
-
     private LockToOrb lockToOrbScript;
 
     private void Start()

@@ -1,22 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LockToOrb : MonoBehaviour
 {
-    public static bool isLockedOn;
-
+    public float raycastDistance = 10f;  
     public Transform characterController;
     public Transform virtualCameraTransform;
+    [HideInInspector] public Transform lockedTarget;
 
+    [SerializeField] private Image lockOnCrosshair;
     private bool isCameraLocked = false;
     private Transform _lockedTarget;
-    [HideInInspector]
-    public Transform lockedTarget;
     private Ray ray;
     private RaycastHit hit;
 
-    public float raycastDistance = 10f;
+    private void Start()
+    {
+        lockOnCrosshair.enabled = false;
+    }
 
     private void Update()
     {
@@ -59,7 +62,6 @@ public class LockToOrb : MonoBehaviour
         {
             if (hit.collider.tag == "Collectible")
             {
-                isLockedOn = true;
                 isCameraLocked = true;
                 _lockedTarget = hit.transform;
             }
@@ -68,13 +70,14 @@ public class LockToOrb : MonoBehaviour
         if (_lockedTarget != null)
         {
             lockedTarget = _lockedTarget;
+            lockOnCrosshair.enabled = true;
         }
     }
 
     private void UnlockCamera()
     {
-        isLockedOn = false;
         isCameraLocked = false;
         _lockedTarget = null;
+        lockOnCrosshair.enabled = false;
     }
 }
