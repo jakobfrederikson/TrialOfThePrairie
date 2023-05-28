@@ -11,6 +11,7 @@ public class LockToOrb : MonoBehaviour
     [HideInInspector] public Transform lockedTarget;
 
     [SerializeField] private Image lockOnCrosshair;
+    [SerializeField] private Image hoverCrosshair;
     private bool isCameraLocked = false;
     private Transform _lockedTarget;
     private Ray ray;
@@ -19,6 +20,7 @@ public class LockToOrb : MonoBehaviour
     private void Start()
     {
         lockOnCrosshair.enabled = false;
+        hoverCrosshair.enabled = false;
     }
 
     private void Update()
@@ -70,7 +72,8 @@ public class LockToOrb : MonoBehaviour
         if (_lockedTarget != null)
         {
             lockedTarget = _lockedTarget;
-            lockOnCrosshair.enabled = true;  
+            lockOnCrosshair.enabled = true;
+            hoverCrosshair.enabled = false;
         }
     }
 
