@@ -58,7 +58,7 @@ public class LockToOrb : MonoBehaviour
     private void TryLockToOrb()
     {
         ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out hit, raycastDistance))
         {
             if (hit.collider.tag == "Collectible")
             {
@@ -70,7 +70,7 @@ public class LockToOrb : MonoBehaviour
         if (_lockedTarget != null)
         {
             lockedTarget = _lockedTarget;
-            lockOnCrosshair.enabled = true;
+            lockOnCrosshair.enabled = true;  
         }
     }
 
