@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class LockToOrb : MonoBehaviour
 {
-    public float raycastDistance = 10f;  
-    public Transform characterController;
-    public Transform virtualCameraTransform;
+    public bool unlockingCamera = false;
+    public float raycastDistance = 10f;
+    [SerializeField] public Transform playerCapsuleTransform;
+    [SerializeField] public Transform virtualCameraTransform;
     [HideInInspector] public Transform lockedTarget;
 
     [SerializeField] private Image lockOnCrosshair;
@@ -47,14 +49,16 @@ public class LockToOrb : MonoBehaviour
         if (isCameraLocked && _lockedTarget != null)
         {
             // Calculate the desired look-at position
-            Vector3 lookAtPosition = new Vector3(_lockedTarget.position.x, characterController.transform.position.y, _lockedTarget.position.z);
+            Vector3 lookAtPosition = new Vector3(_lockedTarget.position.x, playerCapsuleTransform.transform.position.y, _lockedTarget.position.z);
 
             // Make the character controller look at the target
-            characterController.transform.LookAt(lookAtPosition);
+            playerCapsuleTransform.transform.LookAt(lookAtPosition);
 
             // Make the virtual camera transform look at the target
             virtualCameraTransform.LookAt(_lockedTarget);
         }
+
+        unlockingCamera = false;
     }
 
     private void TryLockToOrb()

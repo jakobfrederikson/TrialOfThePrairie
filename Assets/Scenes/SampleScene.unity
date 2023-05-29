@@ -672,8 +672,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cdba6cdb07625f4d99bc8ac8005e0d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unlockingCamera: 0
   raycastDistance: 10
-  characterController: {fileID: 875863115}
+  playerCapsuleTransform: {fileID: 875863115}
   virtualCameraTransform: {fileID: 1101046632}
   lockedTarget: {fileID: 0}
   lockOnCrosshair: {fileID: 749147187}
@@ -712,6 +713,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hoverOverOrbCrosshair: {fileID: 117562493}
   raycastDistance: 10
+--- !u!114 &875863128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 875863102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf1beae9fda46e6479897a639a38d73c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _orb: {fileID: 2950256155396711594, guid: 762254fc280e9c24db9292ce91629abe, type: 3}
 --- !u!1001 &949330604
 PrefabInstance:
   m_ObjectHideFlags: 0
