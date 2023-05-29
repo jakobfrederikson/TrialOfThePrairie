@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class LockToOrb : MonoBehaviour
 {
-    public bool unlockingCamera = false;
     public float raycastDistance = 10f;
     [SerializeField] public Transform playerCapsuleTransform;
     [SerializeField] public Transform virtualCameraTransform;
@@ -57,8 +56,6 @@ public class LockToOrb : MonoBehaviour
             // Make the virtual camera transform look at the target
             virtualCameraTransform.LookAt(_lockedTarget);
         }
-
-        unlockingCamera = false;
     }
 
     private void TryLockToOrb()
