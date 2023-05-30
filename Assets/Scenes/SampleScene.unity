@@ -425,7 +425,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 430152174}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 927936457}
+        m_TargetAssemblyTypeName: DialogueTrigger, Assembly-CSharp
+        m_MethodName: TriggerDialogue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &430152174
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -994,6 +1006,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hoverOverOrbCrosshair: {fileID: 117562493}
   raycastDistance: 10
+--- !u!1 &927936452 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 873534467894612816, guid: afa3c4d71c8d0d94c9992ab893d05211, type: 3}
+  m_PrefabInstance: {fileID: 7757531988783612013}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &927936457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927936452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1658bb67e72633f4db0b0bfe4679d4c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogue:
+    sentences:
+    - Hey there! These is the testing level for the game "Trial of the Prairie".
+    - Not much will happen here...
+    - But feel free to play around!
+--- !u!65 &927936458
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927936452}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 8, y: 1, z: 8}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &949330604
 PrefabInstance:
   m_ObjectHideFlags: 0
