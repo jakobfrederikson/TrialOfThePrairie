@@ -1,9 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using System.Threading;
 
 public class DialogueManager : MonoBehaviour
 {
+    public TextMeshProUGUI dialogueText;
+
+    public Animator animator;
+
     private Queue<string> sentences;
 
     // Start is called before the first frame update
@@ -15,6 +21,7 @@ public class DialogueManager : MonoBehaviour
     public void StartDialogue(Dialogue dialogue)
     {
         Debug.Log("Starting conversation");
+        animator.SetBool("IsOpen", true);
 
         sentences.Clear();
 
@@ -35,11 +42,23 @@ public class DialogueManager : MonoBehaviour
         }
 
         string sentence = sentences.Dequeue();
-        Debug.Log(sentence);
+        StopAllCoroutines();
+        StartCoroutine(TypeSentence(sentence));
+    }
+
+    IEnumerator TypeSentence (string sentence)
+    {
+        dialogueText.text = "";
+        foreach (char letter in sentence.ToCharArray())
+        {
+            dialogueText.text += letter;
+            yield return new WaitForSeconds(0.01f);
+        }
     }
 
     void EndDialogue()
     {
         Debug.Log("End of conversation.");
+        animator.SetBool("IsOpen", false);
     }
 }
