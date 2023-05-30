@@ -826,8 +826,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3a3ce4e8a343a544bbe04b34a0b5529, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dashTime: 0.5
-  dashForce: 25
+  dashTime: 0.3
+  dashForce: 17
   virtualCameraTransform: {fileID: 1101046632}
 --- !u!114 &875863122
 MonoBehaviour:
@@ -1917,7 +1917,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3679737189271861651, guid: 762254fc280e9c24db9292ce91629abe, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 10.94
+      value: 13.21
       objectReference: {fileID: 0}
     - target: {fileID: 3679737189271861651, guid: 762254fc280e9c24db9292ce91629abe, type: 3}
       propertyPath: m_LocalRotation.w
