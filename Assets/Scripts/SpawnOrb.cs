@@ -15,7 +15,6 @@ public class SpawnOrb : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F))
         {
             ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
-            Debug.DrawRay(ray.origin, ray.direction * raycastDistance, Color.blue);
             if (Physics.Raycast(ray, out hit, raycastDistance))
                 _orb.transform.position = hit.point;
             else
