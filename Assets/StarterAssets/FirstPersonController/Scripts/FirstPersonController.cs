@@ -66,7 +66,7 @@ namespace StarterAssets
 		private float _fallTimeoutDelta;
 
 		// bools
-		private bool canSprint = false;
+		private bool groundOrbUnlocked = false;
 
 		// scripts
 		LockToOrb _lockToOrbScript;
@@ -166,7 +166,7 @@ namespace StarterAssets
 			// set target speed based on move speed, sprint speed and if sprint is pressed
 			float targetSpeed;
 
-			if (canSprint)
+			if (groundOrbUnlocked)
 				targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
 			else
 				targetSpeed = MoveSpeed;
