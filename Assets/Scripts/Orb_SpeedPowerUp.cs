@@ -16,7 +16,7 @@ public class Orb_SpeedPowerUp : MonoBehaviour
             firstPersonController.groundOrbUnlocked = true;
 
             // Destroy the orb after collision
-            Destroy(this);
+            Destroy(gameObject);
         }
     }
 }
