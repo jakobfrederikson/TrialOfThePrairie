@@ -66,7 +66,8 @@ namespace StarterAssets
 		private float _fallTimeoutDelta;
 
 		// bools
-		private bool groundOrbUnlocked = false;
+		[HideInInspector]
+		public bool groundOrbUnlocked = false;
 
 		// scripts
 		LockToOrb _lockToOrbScript;
