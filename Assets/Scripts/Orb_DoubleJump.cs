@@ -1,7 +1,7 @@
-using UnityEngine;
 using Assets.Scripts;
+using UnityEngine;
 
-public class Orb_SpeedPowerUp : Orb
+public class Orb_DoubleJump : Orb
 {
     private void OnTriggerEnter(Collider other)
     {
@@ -9,7 +9,7 @@ public class Orb_SpeedPowerUp : Orb
         if (other.tag == "Player")
         {
             // Unlock sprinting for the player
-            firstPersonController.sprintOrbUnlocked = true;
+            firstPersonController.doubleJumpOrbUnlocked = true;
 
             // Destroy the orb after collision
             Destroy(gameObject);

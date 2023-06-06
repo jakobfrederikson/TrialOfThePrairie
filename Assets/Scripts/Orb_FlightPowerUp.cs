@@ -1,12 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using StarterAssets;
+using Assets.Scripts;
 
-public class Orb_FlightPowerUp : MonoBehaviour
+public class Orb_FlightPowerUp : Orb
 {
-    [SerializeField] FirstPersonController firstPersonController;
-
     private void OnTriggerEnter(Collider other)
     {
         // Check if the player entered orb collider

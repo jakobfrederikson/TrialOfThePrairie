@@ -67,8 +67,10 @@ namespace StarterAssets
 
 		// bools
 		[HideInInspector]
-		public bool groundOrbUnlocked = false;
-		[HideInInspector]
+		public bool sprintOrbUnlocked = false;
+        [HideInInspector]
+        public bool doubleJumpOrbUnlocked = false;
+        [HideInInspector]
 		public bool flightOrbUnlocked = false;
 
 		// scripts
@@ -169,7 +171,7 @@ namespace StarterAssets
 			// set target speed based on move speed, sprint speed and if sprint is pressed
 			float targetSpeed;
 
-			if (groundOrbUnlocked)
+			if (sprintOrbUnlocked)
 				targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
 			else
 				targetSpeed = MoveSpeed;
