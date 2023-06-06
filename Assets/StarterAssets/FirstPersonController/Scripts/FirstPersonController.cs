@@ -70,6 +70,7 @@ namespace StarterAssets
 		public bool sprintOrbUnlocked = false;
         [HideInInspector]
         public bool doubleJumpOrbUnlocked = false;
+		private bool hasDoubleJumped = false;
         [HideInInspector]
 		public bool flightOrbUnlocked = false;
 
@@ -141,6 +142,7 @@ namespace StarterAssets
 			// set sphere position, with offset
 			Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z);
 			Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers, QueryTriggerInteraction.Ignore);
+			if (Grounded) hasDoubleJumped = false;
 		}
 
 		private void CameraRotation()
@@ -234,6 +236,7 @@ namespace StarterAssets
 				// Jump
 				if (_input.jump && _jumpTimeoutDelta <= 0.0f)
 				{
+					Debug.Log("Jumping");
 					// the square root of H * -2 * G = how much velocity needed to reach desired height
 					_verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
 				}
@@ -243,6 +246,13 @@ namespace StarterAssets
 				{
 					_jumpTimeoutDelta -= Time.deltaTime;
 				}
+			}
+			else if (doubleJumpOrbUnlocked && !Grounded && !hasDoubleJumped && Input.GetButtonDown("Jump"))
+			{
+				// double jump
+				Debug.Log("Double jumping");
+				hasDoubleJumped = true;
+				_verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
 			}
 			else
 			{
@@ -263,7 +273,7 @@ namespace StarterAssets
 			if (_verticalVelocity < _terminalVelocity)
 			{
 				_verticalVelocity += Gravity * Time.deltaTime;
-			}
+            }
 		}
 
 		private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
