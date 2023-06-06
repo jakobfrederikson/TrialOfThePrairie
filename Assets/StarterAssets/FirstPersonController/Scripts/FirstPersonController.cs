@@ -68,6 +68,8 @@ namespace StarterAssets
 		// bools
 		[HideInInspector]
 		public bool groundOrbUnlocked = false;
+		[HideInInspector]
+		public bool flightOrbUnlocked = false;
 
 		// scripts
 		LockToOrb _lockToOrbScript;
