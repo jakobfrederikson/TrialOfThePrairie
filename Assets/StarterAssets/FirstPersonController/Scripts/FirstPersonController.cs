@@ -73,6 +73,7 @@ namespace StarterAssets
 		private bool hasDoubleJumped = false;
         [HideInInspector]
 		public bool flightOrbUnlocked = false;
+		private bool flying = false;
 
 		// scripts
 		LockToOrb _lockToOrbScript;
