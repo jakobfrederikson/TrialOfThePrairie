@@ -70,10 +70,13 @@ namespace StarterAssets
 		public bool sprintOrbUnlocked = false;
         [HideInInspector]
         public bool doubleJumpOrbUnlocked = false;
-		private bool hasDoubleJumped = false;
+		private bool _hasDoubleJumped = false;
         [HideInInspector]
-		public bool flightOrbUnlocked = false;
-		private bool flying = false;
+		public bool glideOrbUnlocked = false;
+		private bool _gliding = false;
+
+		// gliding
+		public float glideSpeed = 4f;
 
 		// scripts
 		LockToOrb _lockToOrbScript;
@@ -127,9 +130,9 @@ namespace StarterAssets
 
 		private void Update()
 		{
-			JumpAndGravity();
-			GroundedCheck();
-			Move();
+            JumpAndGravity(); // Gliding is also included in this function
+            GroundedCheck();
+            Move();		
 		}
 
 		private void LateUpdate()
@@ -143,7 +146,7 @@ namespace StarterAssets
 			// set sphere position, with offset
 			Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z);
 			Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers, QueryTriggerInteraction.Ignore);
-			if (Grounded) hasDoubleJumped = false;
+			if (Grounded) _hasDoubleJumped = false;
 		}
 
 		private void CameraRotation()
@@ -237,7 +240,6 @@ namespace StarterAssets
 				// Jump
 				if (_input.jump && _jumpTimeoutDelta <= 0.0f)
 				{
-					Debug.Log("Jumping");
 					// the square root of H * -2 * G = how much velocity needed to reach desired height
 					_verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
 				}
@@ -248,11 +250,11 @@ namespace StarterAssets
 					_jumpTimeoutDelta -= Time.deltaTime;
 				}
 			}
-			else if (doubleJumpOrbUnlocked && !Grounded && !hasDoubleJumped && Input.GetButtonDown("Jump"))
+			else if (doubleJumpOrbUnlocked && !Grounded && !_hasDoubleJumped && Input.GetButtonDown("Jump"))
 			{
 				// double jump
 				Debug.Log("Double jumping");
-				hasDoubleJumped = true;
+				_hasDoubleJumped = true;
 				_verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
 			}
 			else
@@ -270,6 +272,12 @@ namespace StarterAssets
 				_input.jump = false;
 			}
 
+			// Gliding needs to happen AFTER the jump
+			if (!Grounded && !_gliding && Input.GetButtonDown("Jump"))
+			{
+				Glide();
+			}	
+
 			// apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
 			if (_verticalVelocity < _terminalVelocity)
 			{
@@ -277,7 +285,19 @@ namespace StarterAssets
             }
 		}
 
-		private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
+        private void Glide()
+        {
+            // If player still holding jump after N time
+            Debug.Log("Gliding");
+            Vector3 glideForce = new Vector3(0f, -glideSpeed, 0f);
+            _controller.Move(glideForce * Time.deltaTime);
+            if ((Input.GetButtonUp("Jump") || _controller.isGrounded) && _gliding)
+            {
+                _gliding = false;
+            }
+        }
+
+        private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
 		{
 			if (lfAngle < -360f) lfAngle += 360f;
 			if (lfAngle > 360f) lfAngle -= 360f;
