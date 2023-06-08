@@ -17,28 +17,7 @@ public class OnDestroyOrbText : MonoBehaviour
     {
         if (other.tag == "Collectible")
         {
-            StartCoroutine(ShowText());
-            StartCoroutine(HideText());
+            Debug.Log("Display Text");
         }
-    }
-
-    IEnumerator ShowText()
-    {
-        float startTime = Time.time;
-        while (Time.time < startTime + textFadeLength)
-        {
-            _orbDestroyText.alpha++;
-        }
-        yield return new WaitForSeconds(1.0f);
-    }
-
-    IEnumerator HideText()
-    {
-        float startTime = Time.time;
-        while (Time.time < startTime + textFadeLength) 
-        {
-            _orbDestroyText.alpha--;
-        }
-        yield return new WaitForSeconds(1.0f);
     }
 }

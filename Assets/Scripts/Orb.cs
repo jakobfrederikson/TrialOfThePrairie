@@ -9,7 +9,7 @@ namespace Assets.Scripts
     {
         [SerializeField] internal FirstPersonController firstPersonController;
         [SerializeField] public TextMeshProUGUI orbDestroyText;
-        [SerializeField] public Animator animator;
+        //[SerializeField] public Animator animator;
 
         private void Start()
         {
@@ -18,8 +18,7 @@ namespace Assets.Scripts
 
         private void OnDestroy()
         {
-            Debug.Log("I've been destroyed!");
-            animator.SetBool("IsVisible", true);
+            //animator.SetBool("IsVisible", true);
         }
     }
 }
