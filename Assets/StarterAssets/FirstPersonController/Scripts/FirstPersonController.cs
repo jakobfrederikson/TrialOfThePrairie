@@ -76,10 +76,14 @@ namespace StarterAssets
 		private bool _gliding = false;
 
 		// gliding
-		public float glideSpeed = 4f;
+		[Header("Gliding")]
+        [Tooltip("The lower the longer the glide will last")]
+        public float glideSpeed = 4f;
+        public float fallingThreshold = -10;
+        private bool _falling = false;		
 
-		// scripts
-		LockToOrb _lockToOrbScript;
+        // scripts
+        private LockToOrb _lockToOrbScript;
 
 	
 #if ENABLE_INPUT_SYSTEM
@@ -130,6 +134,7 @@ namespace StarterAssets
 
 		private void Update()
 		{
+			Falling();
             JumpAndGravity(); // Gliding is also included in this function
             GroundedCheck();
             Move();		
@@ -250,14 +255,18 @@ namespace StarterAssets
 					_jumpTimeoutDelta -= Time.deltaTime;
 				}
 			}
-			else if (doubleJumpOrbUnlocked && !Grounded && !_hasDoubleJumped && Input.GetButtonDown("Jump"))
+			else if (doubleJumpOrbUnlocked && !_hasDoubleJumped && Input.GetButtonDown("Jump"))
 			{
 				// double jump
 				Debug.Log("Double jumping");
 				_hasDoubleJumped = true;
 				_verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
 			}
-			else
+            else if (glideOrbUnlocked && !_gliding && Input.GetButton("Jump"))
+            {
+				if (_falling) _gliding = true;
+            }
+            else
 			{
 				// reset the jump timeout timer
 				_jumpTimeoutDelta = JumpTimeout;
@@ -272,30 +281,31 @@ namespace StarterAssets
 				_input.jump = false;
 			}
 
-			// Gliding needs to happen AFTER the jump
-			if (!Grounded && !_gliding && Input.GetButtonDown("Jump"))
+			if (_gliding)
 			{
-				Glide();
-			}	
+				Debug.Log("Gliding");
+				Gravity = -glideSpeed;
+			}
 
-			// apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
-			if (_verticalVelocity < _terminalVelocity)
+			if (Input.GetButtonUp("Jump") && _gliding)
+			{
+				Debug.Log("End Glide");
+				Gravity = -15.0f;
+				_gliding = false;
+			}
+
+            // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
+            if (_verticalVelocity < _terminalVelocity)
 			{
 				_verticalVelocity += Gravity * Time.deltaTime;
             }
 		}
 
-        private void Glide()
-        {
-            // If player still holding jump after N time
-            Debug.Log("Gliding");
-            Vector3 glideForce = new Vector3(0f, -glideSpeed, 0f);
-            _controller.Move(glideForce * Time.deltaTime);
-            if ((Input.GetButtonUp("Jump") || _controller.isGrounded) && _gliding)
-            {
-                _gliding = false;
-            }
-        }
+		private void Falling()
+		{
+			if (_controller.velocity.y < fallingThreshold) _falling = true;
+			else _falling = false;
+		}
 
         private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
 		{
