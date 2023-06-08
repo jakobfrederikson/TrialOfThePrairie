@@ -77,8 +77,9 @@ namespace StarterAssets
 
 		// gliding
 		[Header("Gliding")]
-        [Tooltip("The lower the longer the glide will last")]
+        [Tooltip("The lower the gliding speed, longer the glide will last")]
         public float glideSpeed = 4f;
+        [Tooltip("A lower falling threshold means the gliding effect will start faster")]
         public float fallingThreshold = -10;
         private bool _falling = false;		
 
@@ -303,6 +304,7 @@ namespace StarterAssets
 
 		private void Falling()
 		{
+			// if falling velocity is less than the falling threshold, then the player is flying
 			if (_controller.velocity.y < fallingThreshold) _falling = true;
 			else _falling = false;
 		}
