@@ -8,37 +8,55 @@ public class OrbCollectionManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _onOrbDestroyText;
     public float transparencyDelay = 1.0f;
 
-    private void Start()
+    private void Awake()
     {
-        _onOrbDestroyText.enabled = false;
-        _onOrbDestroyText.alpha = 0.0f;
+        _onOrbDestroyText.color = new Color(_onOrbDestroyText.color.r,
+                                            _onOrbDestroyText.color.g,
+                                            _onOrbDestroyText.color.b,
+                                            0);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Collectible")
         {
-            StartCoroutine(ShowMessage());
+            StopAllCoroutines();
+            StartCoroutine(FadeTextToFullAlpha());
+            StartCoroutine(FadeTextToZeroAlpha());
         }
     }
 
-    IEnumerator ShowMessage()
+    public IEnumerator FadeTextToFullAlpha()
     {
-        float startTime = Time.time;
-        _onOrbDestroyText.enabled = true;
-        while (Time.time < startTime + transparencyDelay)
-        {
-            _onOrbDestroyText.alpha += 1.0f;
-            yield return null;
-        }            
-        
-        yield return new WaitForSeconds(transparencyDelay);
-        _onOrbDestroyText.enabled = false;
+        _onOrbDestroyText.color = new Color(_onOrbDestroyText.color.r,
+                                            _onOrbDestroyText.color.g, 
+                                            _onOrbDestroyText.color.b, 
+                                            0);
 
-        startTime = Time.time;
-        while (Time.time < startTime + transparencyDelay)
+        while (_onOrbDestroyText.color.a < 1.0f)
         {
-            _onOrbDestroyText.alpha -= 1.0f;
+            _onOrbDestroyText.color = new Color(_onOrbDestroyText.color.r, 
+                                                _onOrbDestroyText.color.g, 
+                                                _onOrbDestroyText.color.b, 
+            _onOrbDestroyText.color.a + (Time.deltaTime / transparencyDelay));
+            yield return null;
+        } 
+    }
+
+    public IEnumerator FadeTextToZeroAlpha()
+    {
+        yield return new WaitForSeconds(2.0f);
+        _onOrbDestroyText.color = new Color(_onOrbDestroyText.color.r,
+                                            _onOrbDestroyText.color.g,
+                                            _onOrbDestroyText.color.b,
+                                            1);
+
+        while (_onOrbDestroyText.color.a > 0.0f)
+        {
+            _onOrbDestroyText.color = new Color(_onOrbDestroyText.color.r,
+                                                _onOrbDestroyText.color.g,
+                                                _onOrbDestroyText.color.b,
+            _onOrbDestroyText.color.a - (Time.deltaTime / transparencyDelay));
             yield return null;
         }
     }
