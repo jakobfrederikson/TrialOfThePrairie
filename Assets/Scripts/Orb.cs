@@ -8,17 +8,11 @@ namespace Assets.Scripts
     public abstract class Orb : MonoBehaviour
     {
         [SerializeField] internal FirstPersonController firstPersonController;
-        [SerializeField] public TextMeshProUGUI orbDestroyText;
-        //[SerializeField] public Animator animator;
 
-        private void Start()
+        private void OnTriggerEnter(Collider other)
         {
-            orbDestroyText.enabled = false;
-        }
-
-        private void OnDestroy()
-        {
-            //animator.SetBool("IsVisible", true);
+            if (other.tag == "Player")
+                Destroy(this.gameObject);
         }
     }
 }
