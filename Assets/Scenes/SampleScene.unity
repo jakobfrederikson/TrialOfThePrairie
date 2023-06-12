@@ -39640,15 +39640,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: NEW POWER DISCOVERED
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aa80cd432ae624f439300332fa4c0339, type: 2}
-  m_sharedMaterial: {fileID: 2643977459010063563, guid: aa80cd432ae624f439300332fa4c0339, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4be9fb009e2131f4297b9560d4af30a7, type: 2}
+  m_sharedMaterial: {fileID: -5581447392614335300, guid: 4be9fb009e2131f4297b9560d4af30a7, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967028
-  m_fontColor: {r: 0.9575472, g: 0.9965579, b: 1, a: 1}
+    rgba: 4294966758
+  m_fontColor: {r: 0.9009434, g: 0.9909949, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -39665,13 +39665,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 118.7
-  m_fontSizeBase: 118.7
+  m_fontSize: 137
+  m_fontSizeBase: 137
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 16
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535

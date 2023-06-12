@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using Assets.Scripts;
 
 public class OrbCollectionManager : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class OrbCollectionManager : MonoBehaviour
     {
         if (other.tag == "Collectible")
         {
+            _onOrbDestroyText.text = $"{other.GetComponent<Orb>().Name} orb unlocked";
             StopAllCoroutines();
             StartCoroutine(FadeTextToFullAlpha());
             StartCoroutine(FadeTextToZeroAlpha());

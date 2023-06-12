@@ -9,6 +9,9 @@ namespace Assets.Scripts
     {
         [SerializeField] internal FirstPersonController firstPersonController;
 
+        // the name of the child orb to display once acquired
+        public abstract string Name { get; }
+
         private void OnTriggerEnter(Collider other)
         {
             if (other.tag == "Player")
