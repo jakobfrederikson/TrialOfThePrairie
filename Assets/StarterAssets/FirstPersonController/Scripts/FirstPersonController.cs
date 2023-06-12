@@ -74,6 +74,8 @@ namespace StarterAssets
         [HideInInspector]
 		public bool glideOrbUnlocked = false;
 		private bool _gliding = false;
+		[HideInInspector]
+		public bool lockOnOrbUnlocked = false;
 
 		// gliding
 		[Header("Gliding")]

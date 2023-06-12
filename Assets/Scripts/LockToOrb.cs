@@ -18,6 +18,9 @@ public class LockToOrb : MonoBehaviour
     private Ray ray;
     private RaycastHit hit;
 
+    [HideInInspector]
+    public bool lockOnOrbUnlocked = false;
+
     private void Start()
     {
         lockOnCrosshair.enabled = false;
@@ -26,7 +29,8 @@ public class LockToOrb : MonoBehaviour
 
     private void Update()
     {
-        HandleCameraLock();
+        if (lockOnOrbUnlocked)
+            HandleCameraLock();
     }
 
     private void HandleCameraLock()

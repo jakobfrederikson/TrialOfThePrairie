@@ -22,7 +22,8 @@ public class CrosshairHoverOverOrb : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckHover();
+        if (lockToOrbScript.lockOnOrbUnlocked)
+            CheckHover();
     }
 
     void CheckHover()
