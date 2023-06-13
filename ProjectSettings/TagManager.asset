@@ -7,6 +7,7 @@ TagManager:
   - CinemachineTarget
   - Collectible
   - NPC
+  - InteractableCollider
   layers:
   - Default
   - TransparentFX

@@ -6,43 +6,50 @@ using UnityEngine.UI;
 
 public class DisplayInteractKey : MonoBehaviour
 {
-    [SerializeField] private Image _interactBox;
-    [SerializeField] private TextMeshProUGUI _interactText;
+    [SerializeField] private GameObject _interactBox;
     private bool _playerInTrigger = false;
     private bool _playerCurrentlyInteracting = false;
 
     private void Start()
     {
-        _interactBox.enabled = false;
-        _interactText.enabled = false;
+        _interactBox.SetActive(false);
     }
 
     private void Update()
     {
         if (_playerInTrigger && !_playerCurrentlyInteracting)
         {
-            _interactBox.enabled = true;
-            _interactText.enabled = true;
+            _interactBox.SetActive(true);
+
+            // disable interact tool tip if player starts interacting
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                _playerCurrentlyInteracting = true;
+            }
         }
         else
         {
-            _interactBox.enabled = false;
-            _interactText.enabled = false;
+            _interactBox.SetActive(false);
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("InteractableCollider"))
         {
+            // enable interact box
             _playerInTrigger = true;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("InteractableCollider"))
         {
+            // player is not interacting if they left the trigger box
+            if (_playerCurrentlyInteracting) _playerCurrentlyInteracting = false;
+
+            // disable interact box
             _playerInTrigger = false;
         }
     }
