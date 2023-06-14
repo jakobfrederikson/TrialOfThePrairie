@@ -288,13 +288,11 @@ namespace StarterAssets
 
 			if (_gliding)
 			{
-				Debug.Log("Gliding");
 				Gravity = -glideSpeed;
 			}
 
 			if (Input.GetButtonUp("Jump") && _gliding)
 			{
-				Debug.Log("End Glide");
 				Gravity = -15.0f;
 				_gliding = false;
 			}
