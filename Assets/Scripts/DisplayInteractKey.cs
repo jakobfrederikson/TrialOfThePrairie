@@ -6,12 +6,13 @@ using UnityEngine.UI;
 
 public class DisplayInteractKey : MonoBehaviour
 {
-    [SerializeField] private GameObject _interactBox;
-    private bool _playerInTrigger = false;
+    [HideInInspector] public bool PlayerCurrentlyInteracting { get; private set; } = false;
 
+    [SerializeField] private GameObject _interactBox;
+    
     [SerializeField] private QuestGiver _questGiver;
 
-    [HideInInspector] public bool PlayerCurrentlyInteracting { get; private set; } = false;
+    private bool _playerInTrigger = false;
 
     private void Start()
     {
