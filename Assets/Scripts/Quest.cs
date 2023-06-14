@@ -10,5 +10,5 @@ public class Quest
     public string title;
     public string objective;
     public string description;
-    public int rewardAmount;
+    public string rewardDescription;
 }

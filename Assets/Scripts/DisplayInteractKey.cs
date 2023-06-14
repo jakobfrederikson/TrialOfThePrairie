@@ -8,7 +8,10 @@ public class DisplayInteractKey : MonoBehaviour
 {
     [SerializeField] private GameObject _interactBox;
     private bool _playerInTrigger = false;
-    private bool _playerCurrentlyInteracting = false;
+
+    [SerializeField] private QuestGiver _questGiver;
+
+    [HideInInspector] public bool PlayerCurrentlyInteracting { get; private set; } = false;
 
     private void Start()
     {
@@ -17,19 +20,23 @@ public class DisplayInteractKey : MonoBehaviour
 
     private void Update()
     {
-        if (_playerInTrigger && !_playerCurrentlyInteracting)
+        if (_playerInTrigger && !PlayerCurrentlyInteracting)
         {
             _interactBox.SetActive(true);
 
             // disable interact tool tip if player starts interacting
             if (Input.GetKeyDown(KeyCode.E))
             {
-                _playerCurrentlyInteracting = true;
+                LockPlayerCursor();
+                _interactBox.SetActive(false);
+                _questGiver.OpenQuestWindow();
             }
         }
-        else
+        else if (!_playerInTrigger)
         {
+            UnlockPlayerCursor();
             _interactBox.SetActive(false);
+            _questGiver.CloseQuestWindow();
         }
     }
 
@@ -46,11 +53,22 @@ public class DisplayInteractKey : MonoBehaviour
     {
         if (other.CompareTag("InteractableCollider"))
         {
-            // player is not interacting if they left the trigger box
-            if (_playerCurrentlyInteracting) _playerCurrentlyInteracting = false;
-
             // disable interact box
             _playerInTrigger = false;
         }
+    }
+
+    private void LockPlayerCursor()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        PlayerCurrentlyInteracting = true;
+    }
+
+    public void UnlockPlayerCursor()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        PlayerCurrentlyInteracting = false;
     }
 }

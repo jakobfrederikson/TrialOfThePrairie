@@ -87,6 +87,7 @@ namespace StarterAssets
 
         // scripts
         private LockToOrb _lockToOrbScript;
+		[SerializeField] private DisplayInteractKey _displayInteractKeyScript;
 
 	
 #if ENABLE_INPUT_SYSTEM
@@ -145,7 +146,8 @@ namespace StarterAssets
 
 		private void LateUpdate()
 		{
-			if (_lockToOrbScript.lockedTarget == null)
+			// && player not in UI window
+			if (_lockToOrbScript.lockedTarget == null && _displayInteractKeyScript.PlayerCurrentlyInteracting == false)
 				CameraRotation();
 		}
 
