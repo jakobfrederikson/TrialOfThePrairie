@@ -13,9 +13,22 @@ public class QuestGoal
     {
         return (currentAmount >= requiredAmount);
     }
+
+    public void OrbCollected()
+    {
+        if (goalType == GoalType.Collect)
+            currentAmount++;
+    }
+
+    public void AreaDiscovered()
+    {
+        if (goalType == GoalType.Discover)
+            currentAmount++;
+    }
 }
 
 public enum GoalType
 {
-    Collect
+    Collect,
+    Discover
 }
