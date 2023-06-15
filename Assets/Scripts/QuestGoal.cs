@@ -1,3 +1,4 @@
+using Assets.Scripts;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,8 +17,8 @@ public class QuestGoal
 
     public void OrbCollected()
     {
-        if (goalType == GoalType.Collect)
-            currentAmount++;
+        if (goalType == GoalType.OrbCollect)
+            currentAmount++;            
     }
 
     public void AreaDiscovered()
@@ -29,6 +30,6 @@ public class QuestGoal
 
 public enum GoalType
 {
-    Collect,
+    OrbCollect,
     Discover
 }
