@@ -8,6 +8,6 @@ public class Orb_GlidePowerUp : Orb
     private void OnDestroy()
     {
         // unlock gliding for the player
-        firstPersonController.glideOrbUnlocked = true;
+        //firstPersonController.glideOrbUnlocked = true;
     }
 }

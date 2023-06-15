@@ -6,30 +6,26 @@ using UnityEngine;
 [System.Serializable]
 public class QuestGoal
 {
-    public GoalType goalType;
-    public int requiredAmount;
-    public int currentAmount;
+    public string Description { get; set; }
+    public bool Completed { get; set; }
+    public int CurrentAmount { get; set; }
+    public int RequiredAmount { get; set; }
 
-    public bool IsReached()
+    public virtual void Init()
     {
-        return (currentAmount >= requiredAmount);
+        // default init stuff
     }
 
-    public void OrbCollected()
+    public void Evauluate()
     {
-        if (goalType == GoalType.OrbCollect)
-            currentAmount++;            
+        if (CurrentAmount >= RequiredAmount)
+        {
+            Complete();
+        }
     }
-
-    public void AreaDiscovered()
+    
+    public void Complete()
     {
-        if (goalType == GoalType.Discover)
-            currentAmount++;
+        Completed = true;
     }
-}
-
-public enum GoalType
-{
-    OrbCollect,
-    Discover
 }

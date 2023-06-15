@@ -1,22 +1,28 @@
+using Assets.Scripts;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
-[System.Serializable]
-public class Quest
+public class Quest : MonoBehaviour 
 {
-    public bool isActive;
+    public List<QuestGoal> Goals { get; set; } = new List<QuestGoal>();
+    public string Title { get; set; }
+    public string Objective { get; set; }
+    public string Description { get; set; }
+    public string RewardDescription { get; set; }
+    public Orb OrbReward { get; set; }
+    public bool Completed { get; set; }
 
-    public string title;
-    public string objective;
-    public string description;
-    public string rewardDescription;
-
-    public QuestGoal goal;
-
-    public void Complete()
+    public void CheckGoals()
     {
-        isActive = false;
-        Debug.Log(title + " was completed.");
+        Completed = Goals.All(g => g.Completed);
+        if (Completed) GiveReward();
+    }
+
+    private void GiveReward()
+    {
+        if (OrbReward != null)
+            OrbReward.GiveReward();
     }
 }

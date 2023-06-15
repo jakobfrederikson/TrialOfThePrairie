@@ -11,7 +11,7 @@ public class Orb_LockOn : Orb
 
     private void OnDestroy()
     {
-        firstPersonController.lockOnOrbUnlocked = true;
-        _lockToOrb.lockOnOrbUnlocked = true;
+        //firstPersonController.lockOnOrbUnlocked = true;
+        //_lockToOrb.lockOnOrbUnlocked = true;
     }
 }
