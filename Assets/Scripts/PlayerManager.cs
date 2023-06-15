@@ -11,13 +11,9 @@ public class PlayerManager : MonoBehaviour
     private void Update()
     {
         // quests
-        if (quest.isActive)
+        if (quest.IsActive)
         {
-            quest.goal.OrbCollected();
-            if (quest.goal.IsReached())
-            {
-                quest.Complete();
-            }
+            quest.CheckGoals();
         }
     }
 }

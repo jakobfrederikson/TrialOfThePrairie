@@ -13,6 +13,7 @@ public class Quest : MonoBehaviour
     public string RewardDescription { get; set; }
     public Orb OrbReward { get; set; }
     public bool Completed { get; set; }
+    public bool IsActive { get; set; }
 
     public void CheckGoals()
     {
@@ -23,6 +24,9 @@ public class Quest : MonoBehaviour
     private void GiveReward()
     {
         if (OrbReward != null)
+        {
             OrbReward.GiveReward();
+            IsActive = false;
+        }            
     }
 }

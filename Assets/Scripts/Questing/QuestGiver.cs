@@ -24,10 +24,10 @@ public class QuestGiver : MonoBehaviour
 
         Cursor.visible = true;
         questWindow.SetActive(true);
-        questTitle.text = quest.title;
-        questObjective.text = quest.objective;
-        questDescription.text = quest.description;
-        questReward.text = quest.rewardDescription;
+        questTitle.text = quest.Title;
+        questObjective.text = quest.Objective;
+        questDescription.text = quest.Description;
+        questReward.text = quest.RewardDescription;
     }
 
     public void CloseQuestWindow()
@@ -41,7 +41,7 @@ public class QuestGiver : MonoBehaviour
     public void AcceptQuest()
     {
         CloseQuestWindow();
-        quest.isActive = true;
+        quest.IsActive = true;
 
         player.quest = quest;
     }
