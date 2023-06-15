@@ -2,47 +2,71 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
-    public TextMeshProUGUI dialogueText;
+    public static DialogueManager Instance;
+    public GameObject dialoguePanel;
+    public string npcName;
+    public List<string> dialogueLines = new List<string>();
 
-    public Animator animator;
+    Button continueButton;
+    public TextMeshProUGUI dialogueText, nameText;
+    int dialogueIndex = 0;
 
-    private Queue<string> sentences;
-
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        sentences = new Queue<string>();
+        continueButton = dialoguePanel.GetComponentInChildren<Button>();
+        dialogueText = dialoguePanel.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        nameText = dialoguePanel.transform.Find("Name").GetChild(0).GetComponentInChildren<TextMeshProUGUI>();
+        continueButton.onClick.AddListener(delegate { ContinueDialogue(); });
+        dialoguePanel.SetActive(false);
+
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
     }
 
-    public void StartDialogue(Dialogue dialogue)
+    public void AddNewDialogue(string[] lines, string npcName)
     {
-        Debug.Log("Starting conversation");
-        animator.SetBool("IsOpen", true);
-
-        sentences.Clear();
-
-        foreach (string sentence in dialogue.sentences)
+        dialogueIndex = 0;
+        dialogueLines = new List<string>();
+        foreach (string line in lines)
         {
-            sentences.Enqueue(sentence);
+            dialogueLines.Add(line);
         }
+        this.npcName = npcName;
 
-        DisplayNextSentence();
+        CreateDialogue();
     }
 
-    public void DisplayNextSentence()
+    public void CreateDialogue()
     {
-        if (sentences.Count == 0)
+        dialogueText.text = dialogueLines[dialogueIndex];
+        nameText.text = npcName;
+        dialoguePanel.SetActive(true);
+    }
+
+    public void ContinueDialogue()
+    {
+        if (dialogueIndex < dialogueLines.Count - 1)
         {
-            EndDialogue();
-            return;
+            dialogueIndex++;
+            dialogueText.text = dialogueLines[dialogueIndex];
+            StopAllCoroutines();
+            StartCoroutine(TypeSentence(dialogueLines[dialogueIndex]));
+        }
+        else
+        {
+            dialoguePanel.SetActive(false);
         }
 
-        string sentence = sentences.Dequeue();
-        StopAllCoroutines();
-        StartCoroutine(TypeSentence(sentence));
     }
 
     IEnumerator TypeSentence (string sentence)
@@ -53,11 +77,5 @@ public class DialogueManager : MonoBehaviour
             dialogueText.text += letter;
             yield return new WaitForSeconds(0.01f);
         }
-    }
-
-    void EndDialogue()
-    {
-        Debug.Log("End of conversation.");
-        animator.SetBool("IsOpen", false);
     }
 }
