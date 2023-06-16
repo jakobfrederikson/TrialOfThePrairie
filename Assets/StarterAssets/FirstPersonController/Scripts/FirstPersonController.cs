@@ -147,7 +147,7 @@ namespace StarterAssets
 		private void LateUpdate()
 		{
 			// && player not in UI window
-			if (_lockToOrbScript.lockedTarget == null && _displayInteractKeyScript.PlayerCurrentlyInteracting == false)
+			if (_lockToOrbScript.lockedTarget == null && DialogueManager.Instance.PlayerInDialogue == false)
 				CameraRotation();
 		}
 

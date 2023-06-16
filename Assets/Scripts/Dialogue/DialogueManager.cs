@@ -15,8 +15,12 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI dialogueText, nameText;
     int dialogueIndex = 0;
 
+    [HideInInspector] public bool PlayerInDialogue { get; private set; }
+
     private void Awake()
     {
+        PlayerInDialogue = false;
+
         continueButton = dialoguePanel.GetComponentInChildren<Button>();
         dialogueText = dialoguePanel.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
         nameText = dialoguePanel.transform.Find("Name").GetChild(0).GetComponentInChildren<TextMeshProUGUI>();
@@ -51,6 +55,10 @@ public class DialogueManager : MonoBehaviour
         dialogueText.text = dialogueLines[dialogueIndex];
         nameText.text = npcName;
         dialoguePanel.SetActive(true);
+
+        // dialogue requires a cursor to navigate
+        ShowPlayerCursor();
+        PlayerInDialogue = true;
     }
 
     public void ContinueDialogue()
@@ -65,6 +73,10 @@ public class DialogueManager : MonoBehaviour
         else
         {
             dialoguePanel.SetActive(false);
+            // once dialogue is finished, hide cursor
+            HidePlayerCursor();
+
+            PlayerInDialogue = false;
         }
 
     }
@@ -77,5 +89,17 @@ public class DialogueManager : MonoBehaviour
             dialogueText.text += letter;
             yield return new WaitForSeconds(0.01f);
         }
+    }
+
+    private void ShowPlayerCursor()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+    private void HidePlayerCursor()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 }
