@@ -6,6 +6,7 @@ using UnityEngine;
 [System.Serializable]
 public class QuestGoal
 {
+    public Quest Quest { get; set; }
     public string Description { get; set; }
     public bool Completed { get; set; }
     public int CurrentAmount { get; set; }
@@ -16,7 +17,7 @@ public class QuestGoal
         // default init stuff
     }
 
-    public void Evauluate()
+    public void Evaluate()
     {
         if (CurrentAmount >= RequiredAmount)
         {
@@ -27,5 +28,7 @@ public class QuestGoal
     public void Complete()
     {
         Completed = true;
+        this.Quest.CheckGoals();        
+        Debug.Log("Goal marked as complete");
     }
 }

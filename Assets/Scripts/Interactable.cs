@@ -1,0 +1,63 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Interactable : MonoBehaviour
+{
+    [SerializeField] private GameObject _interactBox;
+
+    private bool _playerInTrigger = false;
+    private bool _isEnemy;
+
+    private void Start()
+    {
+        _interactBox.SetActive(false);
+        Debug.Log("Creating interactable: " + gameObject);
+    }
+
+    void Update()
+    {
+        if (_playerInTrigger)
+        {
+            // display key to interact
+            _interactBox.SetActive(true);
+
+            if (!_isEnemy && Input.GetKeyDown(KeyCode.E))
+            {
+                // stop displaying interact key when interacting
+                _interactBox.SetActive(false);
+                Interact();
+                Debug.Log("Test");
+            }                
+        }
+        else 
+        { 
+            // player not in trigger
+            _interactBox.SetActive(false);
+        }
+    }
+
+    public virtual void Interact()
+    {
+        Debug.Log("Interacting with base class.");
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            // enable interact box
+            _playerInTrigger = true;
+            _isEnemy = false;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            // disable interact box
+            _playerInTrigger = false;
+        }
+    }
+}

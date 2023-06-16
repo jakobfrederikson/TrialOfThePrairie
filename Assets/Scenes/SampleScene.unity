@@ -10775,6 +10775,37 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!1 &254717622
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 254717623}
+  m_Layer: 0
+  m_Name: Quests
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &254717623
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 254717622}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &283315538
 GameObject:
   m_ObjectHideFlags: 0
@@ -47316,7 +47347,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1055078716
 GameObject:
@@ -57956,7 +57987,6 @@ GameObject:
   - component: {fileID: 1235014055}
   - component: {fileID: 1235014058}
   - component: {fileID: 1235014060}
-  - component: {fileID: 1235014061}
   m_Layer: 0
   m_Name: NpcBuddy
   m_TagString: Untagged
@@ -58055,31 +58085,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bea79c6c3881fcc4596d0436ade18226, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  quest: {fileID: 0}
-  questWindow: {fileID: 2041204001}
-  questTitle: {fileID: 354555776}
-  questObjective: {fileID: 772867852}
-  questDescription: {fileID: 73681172}
-  questReward: {fileID: 737324402}
-  playerOpenWindow: 0
---- !u!114 &1235014061
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1235014053}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc56896104098434094e66ffe94fa880, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   _interactBox: {fileID: 1533258522}
   dialogue:
-  - I am the NPC of the testing realm.
-  - I will be giving you quests... and such!
-  - Making games is hard.
+  - Hey there friend! I have some quests for you.
+  - I'm not sure if this will work, but it's worth a shot.
+  - Boo-yaka-sha! You'll have a quest for each of those orbs in front of you.
   name: NPC Buddy
+  firstPersonController: {fileID: 875863130}
+  quests: {fileID: 254717622}
+  questType: GottaGoFast
 --- !u!1 &1237415455
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,48 +1,58 @@
+using Assets.Scripts;
+using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class QuestGiver : MonoBehaviour
+public class QuestGiver : NPC
 {
-    public Quest quest;
+    [SerializeField] private FirstPersonController firstPersonController;
+    public bool AssignedQuest { get; set; }
+    public bool Helped { get; set; }
 
-    public PlayerManager player;
+    [SerializeField]
+    private GameObject quests;
+    [SerializeField]
+    private OrbCollectionManager orbManager;
 
-    public GameObject questWindow;
-    public TextMeshProUGUI questTitle;
-    public TextMeshProUGUI questObjective;
-    public TextMeshProUGUI questDescription;
-    public TextMeshProUGUI questReward;
+    [SerializeField]
+    private string questType;
+    private Quest Quest { get; set; }
 
-    [HideInInspector]
-    public bool playerOpenWindow = false;
-
-    public void OpenQuestWindow()
+    public override void Interact()
     {
-        playerOpenWindow = true;
-
-        Cursor.visible = true;
-        questWindow.SetActive(true);
-        questTitle.text = quest.Title;
-        questObjective.text = quest.Objective;
-        questDescription.text = quest.Description;
-        questReward.text = quest.RewardDescription;
+        base.Interact();
+        if (!AssignedQuest && !Helped)
+        {
+            AssignQuest();
+        }
+        else if (AssignedQuest && !Helped)
+        {
+            CheckQuest();
+        }
     }
 
-    public void CloseQuestWindow()
+    private void AssignQuest()
     {
-        playerOpenWindow = false;
-
-        Cursor.visible = false;
-        questWindow.SetActive(false);
+        AssignedQuest = true;
+        Quest = (Quest)quests.AddComponent(System.Type.GetType("GottaGoFast"));
+        Quest.firstPersonController = firstPersonController;
+        orbManager.quest = Quest;
     }
 
-    public void AcceptQuest()
+    void CheckQuest()
     {
-        CloseQuestWindow();
-        quest.IsActive = true;
-
-        player.quest = quest;
+        if (Quest.Completed)
+        {
+            Quest.GiveReward();
+            Helped = true;
+            AssignedQuest = false;
+            DialogueManager.Instance.AddNewDialogue(new string[] { "Good job! Here's your reward.", "More dialogue" }, name);
+        }
+        else
+        {
+            DialogueManager.Instance.AddNewDialogue(new string[] { "You're still in the middle of helping me. Get back to it!" }, name);
+        }
     }
 }

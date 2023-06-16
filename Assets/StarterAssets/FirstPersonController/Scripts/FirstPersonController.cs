@@ -87,7 +87,6 @@ namespace StarterAssets
 
         // scripts
         private LockToOrb _lockToOrbScript;
-		[SerializeField] private DisplayInteractKey _displayInteractKeyScript;
 
 	
 #if ENABLE_INPUT_SYSTEM

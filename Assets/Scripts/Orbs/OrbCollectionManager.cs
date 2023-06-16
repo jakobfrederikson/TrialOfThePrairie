@@ -9,6 +9,8 @@ public class OrbCollectionManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _onOrbDestroyText;
     public float transparencyDelay = 1.0f;
 
+    [HideInInspector] public Quest quest;
+
     private void Awake()
     {
         _onOrbDestroyText.color = new Color(_onOrbDestroyText.color.r,
@@ -20,7 +22,12 @@ public class OrbCollectionManager : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Collectible")
-        {
+        {                
+            if (other.GetComponent<Orb>().OrbType == quest.OrbReward)
+            {
+                quest.Goals[0].CurrentAmount++;
+                quest.Goals[0].Evaluate();
+            }
             _onOrbDestroyText.text = $"{other.GetComponent<Orb>().Name} orb unlocked";
             StopAllCoroutines();
             StartCoroutine(FadeTextToFullAlpha());
