@@ -7,6 +7,7 @@ public class Interactable : MonoBehaviour
     [SerializeField] private GameObject _interactBox;
 
     private bool _playerInTrigger = false;
+    private bool _isInteracting = false;
     private bool _isEnemy;
 
     private void Start()
@@ -17,23 +18,26 @@ public class Interactable : MonoBehaviour
 
     void Update()
     {
-        if (_playerInTrigger)
+        if (_playerInTrigger && !_isInteracting)
         {
             // display key to interact
             _interactBox.SetActive(true);
-
-            if (!_isEnemy && Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.E))
             {
-                // stop displaying interact key when interacting
-                _interactBox.SetActive(false);
+                _isInteracting = true;
                 Interact();
-                Debug.Log("Test");
-            }                
+            }
         }
-        else 
+        else if (!_isEnemy && _playerInTrigger && _isInteracting)
+        {
+            // stop displaying interact key when interacting
+            _interactBox.SetActive(false);
+        }
+        else if (!_playerInTrigger)
         { 
             // player not in trigger
             _interactBox.SetActive(false);
+            _isInteracting = false;
         }
     }
 
