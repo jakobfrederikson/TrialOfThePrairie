@@ -60,9 +60,11 @@ namespace StarterAssets
 		private float _rotationVelocity;
 		private float _verticalVelocity;
 		private float _terminalVelocity = 53.0f;
+        private bool isClimbingLadder;
+        private Vector3 lastGrabLadderDirection;
 
-		// timeout deltatime
-		private float _jumpTimeoutDelta;
+        // timeout deltatime
+        private float _jumpTimeoutDelta;
 		private float _fallTimeoutDelta;
 
 		// bools
@@ -83,7 +85,7 @@ namespace StarterAssets
         public float glideSpeed = 4f;
         [Tooltip("A lower falling threshold means the gliding effect will start faster")]
         public float fallingThreshold = -10;
-        private bool _falling = false;		
+        private bool _falling = false;
 
         // scripts
         private LockToOrb _lockToOrbScript;
@@ -229,11 +231,77 @@ namespace StarterAssets
 				inputDirection = transform.right * _input.move.x + transform.forward * _input.move.y;
 			}
 
-			// move the player
-			_controller.Move(inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+            // Ladder physics
+            if (!isClimbingLadder)
+            {
+                // Not climbing the ladder
+                float avoidFloorDistance = 0.5f;
+                float ladderGrabDistance = 0.8f;
+                Gravity = -15.0f;
+                if (Physics.Raycast(transform.position + Vector3.up * avoidFloorDistance, inputDirection.normalized, out RaycastHit raycastHit, ladderGrabDistance))
+                {
+                    if (raycastHit.transform.TryGetComponent(out Ladder ladder))
+                    {
+                        GrabLadder(inputDirection.normalized);
+                    }
+                }
+            }
+            else
+            {
+                // Climbing the ladder
+                float avoidFloorDistance = 0.5f;
+                float ladderGrabDistance = 0.8f;
+                Gravity = 0;
+                if (Physics.Raycast(transform.position + Vector3.up * avoidFloorDistance, lastGrabLadderDirection, out RaycastHit raycastHit, ladderGrabDistance))
+                {
+                    if (!raycastHit.transform.TryGetComponent(out Ladder ladder))
+                    {
+                        DropLadder();
+                        _verticalVelocity = 4f;
+                    }
+                }
+                else
+                {
+                    DropLadder();
+                    _verticalVelocity = 4f;
+                }
+
+                if (Vector3.Dot(inputDirection.normalized, lastGrabLadderDirection) < 0)
+                {
+                    // Climbing down the ladder
+                    float ladderFloorDropDistance = .25f;
+                    if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit floorRaycastHit, ladderFloorDropDistance))
+                        DropLadder();
+                }
+            }
+
+            if (isClimbingLadder)
+            {
+                Gravity = 0;
+                inputDirection.y = inputDirection.z;
+                inputDirection.z = 0f;
+                _verticalVelocity = 0f;
+                Grounded = true;
+                _speed = targetSpeed;
+				Debug.Log("climbing");
+            }
+
+            // move the player
+            _controller.Move(inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
         }
 
-		private void JumpAndGravity()
+        private void GrabLadder(Vector3 lastGrabLadderDirection)
+        {
+            isClimbingLadder = true;
+            this.lastGrabLadderDirection = lastGrabLadderDirection;
+        }
+
+        private void DropLadder()
+        {
+            isClimbingLadder = false;
+        }
+
+        private void JumpAndGravity()
 		{
 			if (Grounded)
 			{

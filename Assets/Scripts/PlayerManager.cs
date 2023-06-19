@@ -6,14 +6,4 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    //public Quest quest;
-
-    private void Update()
-    {
-        // quests
-        //if (quest.IsActive)
-        //{
-        //    quest.CheckGoals();
-        //}
-    }
 }
