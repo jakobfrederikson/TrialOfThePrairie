@@ -79,8 +79,7 @@ public class OrbCollectionManager : MonoBehaviour
     public void HideColliderBlocker(Quest newQuest)
     {
         quest = newQuest;
-        Debug.Log("See? tthis is the fucking quest: " + quest);
-        Debug.Log("quest reward is fucking: " + quest.OrbReward);
+
         switch (quest.OrbReward)
         {
             case OrbType.Sprint:

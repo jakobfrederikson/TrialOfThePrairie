@@ -16,8 +16,6 @@ public class QuestGiver : NPC
     [SerializeField]
     private OrbCollectionManager orbManager;
 
-    [SerializeField]
-    private string questType;
     private Quest Quest { get; set; }
 
     private int _questCount = 0;
@@ -65,8 +63,7 @@ public class QuestGiver : NPC
             {
                 if (component is not Transform)
                     Destroy(component);
-            }
-                
+            }                
         }
         else
         {
