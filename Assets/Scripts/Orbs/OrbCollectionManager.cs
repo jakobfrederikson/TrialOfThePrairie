@@ -70,4 +70,34 @@ public class OrbCollectionManager : MonoBehaviour
             yield return null;
         }
     }
+
+    public void UpdateQuest(Quest newQuest)
+    {
+        quest = newQuest;
+    }
+
+    public void HideColliderBlocker(Quest newQuest)
+    {
+        quest = newQuest;
+        Debug.Log("See? tthis is the fucking quest: " + quest);
+        Debug.Log("quest reward is fucking: " + quest.OrbReward);
+        switch (quest.OrbReward)
+        {
+            case OrbType.Sprint:
+                FindObjectOfType<Orb_SpeedPowerUp>().transform.GetChild(5).gameObject.SetActive(false);
+                break;
+            case OrbType.DoubleJump:
+                FindObjectOfType<Orb_DoubleJump>().transform.GetChild(5).gameObject.SetActive(false);
+                break;
+            case OrbType.Glide:
+                FindObjectOfType<Orb_GlidePowerUp>().transform.GetChild(5).gameObject.SetActive(false);
+                break;
+            case OrbType.LockOn:
+                FindObjectOfType<Orb_LockOn>().transform.GetChild(5).gameObject.SetActive(false);
+                break;
+            default:
+                Debug.LogWarning("There is no orb reward");
+                break;
+        }
+    }
 }

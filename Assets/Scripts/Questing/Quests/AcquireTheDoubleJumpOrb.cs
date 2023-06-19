@@ -1,3 +1,4 @@
+using Assets.Scripts;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,5 +18,6 @@ public class AcquireTheDoubleJumpOrb : Quest
         Goals.Add(new OrbCollectionGoal(this, "2", Description, false, 0, 1));
 
         Goals.ForEach(g => g.Init());
+        base.Init();
     }
 }

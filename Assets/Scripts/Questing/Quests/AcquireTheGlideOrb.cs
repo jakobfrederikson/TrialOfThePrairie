@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts;
 using UnityEngine;
 
 public class AcquireTheGlideOrb : Quest
@@ -17,5 +18,6 @@ public class AcquireTheGlideOrb : Quest
         Goals.Add(new OrbCollectionGoal(this, "3", Description, false, 0, 1));
 
         Goals.ForEach(g => g.Init());
+        base.Init();
     }
 }

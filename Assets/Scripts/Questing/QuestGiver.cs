@@ -3,6 +3,7 @@ using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class QuestGiver : NPC
@@ -45,9 +46,8 @@ public class QuestGiver : NPC
             0 => (Quest)quests.AddComponent(System.Type.GetType("AcquireTheSprintOrb")),
             1 => (Quest)quests.AddComponent(System.Type.GetType("AcquireTheDoubleJumpOrb")),
             2 => (Quest)quests.AddComponent(System.Type.GetType("AcquireTheGlideOrb")),
-            3 => (Quest)quests.AddComponent(System.Type.GetType("AcquireTheLockOnOrb")),
+            3 => (Quest)quests.AddComponent(System.Type.GetType("AcquireTheLockOnOrb"))
         };
-        orbManager.quest = Quest;
         Quest.firstPersonController = firstPersonController;        
     }
 
@@ -59,7 +59,14 @@ public class QuestGiver : NPC
             AssignedQuest = false;
             DialogueManager.Instance.AddNewDialogue(new string[] { "Good job! Here's your reward.", "Come back and there might be some more quests!" }, name);
             _questCount++;
-            Debug.Log("Quest count: " + _questCount);
+
+            // remove the quest from the quests object
+            foreach (var component in quests.GetComponents<Component>())
+            {
+                if (component is not Transform)
+                    Destroy(component);
+            }
+                
         }
         else
         {

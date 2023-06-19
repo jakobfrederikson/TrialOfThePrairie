@@ -17,6 +17,14 @@ public class Quest : MonoBehaviour
     public bool Completed { get; set; }
     public bool IsActive { get; set; }
 
+    private OrbCollectionManager orbCollectionManager;
+
+    public void Init()
+    {
+        orbCollectionManager = FindObjectOfType<OrbCollectionManager>();
+        orbCollectionManager.HideColliderBlocker(this);
+    }
+
     public void CheckGoals()
     {
         Completed = Goals.All(g => g.Completed);

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using Assets.Scripts;
 using UnityEditor;
 using UnityEngine;
 
@@ -18,5 +19,6 @@ public class AcquireTheLockOnOrb : Quest
         Goals.Add(new OrbCollectionGoal(this, "4", Description, false, 0, 1));
 
         Goals.ForEach(g => g.Init());
+        base.Init();
     }
 }
