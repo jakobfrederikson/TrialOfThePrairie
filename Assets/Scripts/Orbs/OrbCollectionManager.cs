@@ -23,6 +23,7 @@ public class OrbCollectionManager : MonoBehaviour
     {
         if (other.tag == "Collectible")
         {                
+            // if this orb is the players current quest reward
             if (other.GetComponent<Orb>().OrbType == quest.OrbReward)
             {
                 quest.Goals[0].CurrentAmount++;

@@ -9,7 +9,6 @@ public class QuestGiver : NPC
 {
     [SerializeField] private FirstPersonController firstPersonController;
     public bool AssignedQuest { get; set; }
-    public bool Helped { get; set; }
 
     [SerializeField]
     private GameObject quests;
@@ -20,14 +19,17 @@ public class QuestGiver : NPC
     private string questType;
     private Quest Quest { get; set; }
 
+    private int _questCount = 0;
+
     public override void Interact()
     {
         base.Interact();
-        if (!AssignedQuest && !Helped)
+        // there's only 4 quests in the game, so don't assign a new one if they've reached that
+        if (!AssignedQuest && _questCount <= 3)
         {
             AssignQuest();
         }
-        else if (AssignedQuest && !Helped)
+        else if (AssignedQuest)
         {
             CheckQuest();
         }
@@ -36,19 +38,28 @@ public class QuestGiver : NPC
     private void AssignQuest()
     {
         AssignedQuest = true;
-        Quest = (Quest)quests.AddComponent(System.Type.GetType("GottaGoFast"));
-        Quest.firstPersonController = firstPersonController;
+
+        // find the correct quest to assign
+        Quest = _questCount switch
+        {
+            0 => (Quest)quests.AddComponent(System.Type.GetType("AcquireTheSprintOrb")),
+            1 => (Quest)quests.AddComponent(System.Type.GetType("AcquireTheDoubleJumpOrb")),
+            2 => (Quest)quests.AddComponent(System.Type.GetType("AcquireTheGlideOrb")),
+            3 => (Quest)quests.AddComponent(System.Type.GetType("AcquireTheLockOnOrb")),
+        };
         orbManager.quest = Quest;
+        Quest.firstPersonController = firstPersonController;        
     }
 
-    void CheckQuest()
+    private void CheckQuest()
     {
         if (Quest.Completed)
         {
             Quest.GiveReward();
-            Helped = true;
             AssignedQuest = false;
-            DialogueManager.Instance.AddNewDialogue(new string[] { "Good job! Here's your reward.", "More dialogue" }, name);
+            DialogueManager.Instance.AddNewDialogue(new string[] { "Good job! Here's your reward.", "Come back and there might be some more quests!" }, name);
+            _questCount++;
+            Debug.Log("Quest count: " + _questCount);
         }
         else
         {

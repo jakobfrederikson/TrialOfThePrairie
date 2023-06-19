@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CollectionGoal : QuestGoal
+public class OrbCollectionGoal : QuestGoal
 {
     public string ItemID { get; set; }
 
-    public CollectionGoal(Quest quest, string itemID, string description, bool completed, int currentAmount, int requiredAmount)
+    public OrbCollectionGoal(Quest quest, string itemID, string description, bool completed, int currentAmount, int requiredAmount)
     {
         this.Quest = quest;
         this.ItemID = itemID;

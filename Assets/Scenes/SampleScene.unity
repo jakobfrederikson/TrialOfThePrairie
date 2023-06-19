@@ -31972,6 +31972,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _onOrbDestroyText: {fileID: 575316429}
   transparencyDelay: 1.5
+  quest: {fileID: 0}
 --- !u!114 &875863136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58093,6 +58094,7 @@ MonoBehaviour:
   name: NPC Buddy
   firstPersonController: {fileID: 875863130}
   quests: {fileID: 254717622}
+  orbManager: {fileID: 875863131}
   questType: GottaGoFast
 --- !u!1 &1237415455
 GameObject:
