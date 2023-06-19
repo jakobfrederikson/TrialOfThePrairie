@@ -6,4 +6,6 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
+    public int CollectibleBalance { get; set; }
+
 }

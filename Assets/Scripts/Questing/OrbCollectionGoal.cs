@@ -21,14 +21,4 @@ public class OrbCollectionGoal : QuestGoal
     {
         base.Init();
     }
-
-    public void ItemPickedUp (Orb orb)
-    {
-        if (orb.ID == this.ItemID)
-        {
-            Debug.Log("Detected orb: " + ItemID);
-            this.CurrentAmount++;
-            Evaluate();
-        }
-    }
 }

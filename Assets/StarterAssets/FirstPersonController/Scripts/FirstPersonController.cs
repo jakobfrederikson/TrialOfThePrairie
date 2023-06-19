@@ -330,7 +330,6 @@ namespace StarterAssets
 			else if (doubleJumpOrbUnlocked && !_hasDoubleJumped && Input.GetButtonDown("Jump"))
 			{
 				// double jump
-				Debug.Log("Double jumping");
 				_hasDoubleJumped = true;
 				_verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
 			}

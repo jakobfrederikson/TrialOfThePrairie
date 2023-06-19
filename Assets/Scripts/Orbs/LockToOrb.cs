@@ -29,8 +29,7 @@ public class LockToOrb : MonoBehaviour
 
     private void Update()
     {
-        if (lockOnOrbUnlocked)
-            HandleCameraLock();
+        HandleCameraLock();
     }
 
     private void HandleCameraLock()

@@ -21,7 +21,7 @@ public class OrbCollectionManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Collectible")
+        if (other.tag == "Orb")
         {                
             // if this orb is the players current quest reward
             if (other.GetComponent<Orb>().OrbType == quest.OrbReward)
