@@ -82,7 +82,7 @@ namespace StarterAssets
 		// gliding
 		[Header("Gliding")]
         [Tooltip("The lower the gliding speed, longer the glide will last")]
-        public float glideSpeed = 4f;
+        public float GlideSpeed = 4f;
         [Tooltip("A lower falling threshold means the gliding effect will start faster")]
         public float fallingThreshold = -10;
         private bool _falling = false;
@@ -354,7 +354,7 @@ namespace StarterAssets
 
 			if (_gliding)
 			{
-				Gravity = -glideSpeed;
+				Gravity = -GlideSpeed;
 			}
 
 			if (Input.GetButtonUp("Jump") && _gliding)

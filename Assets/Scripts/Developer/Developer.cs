@@ -34,7 +34,7 @@ public class Developer : MonoBehaviour
                 collectible.transform.position = hit.point;
             else
                 collectible.transform.position = playerCameraTransform.position + ray.direction * raycastDistance;
-            Instantiate(collectible);            
+            Instantiate(collectible);
         }
     }
 }

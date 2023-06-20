@@ -10,24 +10,12 @@ public class Collectible : MonoBehaviour
     // Increase speed + lower gravity for 2 seconds
     // update on screen
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            Destroy(this.gameObject);
+            CollectibleManager.Instance.AcquiredCollectible();
+            Destroy(this.gameObject);            
         }            
     }
 }
