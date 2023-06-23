@@ -29,7 +29,7 @@ public class OrbCollectionManager : MonoBehaviour
                 quest.Goals[0].CurrentAmount++;
                 quest.Goals[0].Evaluate();
             }
-            _onOrbDestroyText.text = $"{other.GetComponent<Orb>().Name} orb unlocked";
+            _onOrbDestroyText.text = $"Quest item collected";
             StopAllCoroutines();
             StartCoroutine(FadeTextToFullAlpha());
             StartCoroutine(FadeTextToZeroAlpha());

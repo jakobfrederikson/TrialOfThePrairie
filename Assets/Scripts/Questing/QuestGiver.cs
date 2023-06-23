@@ -1,4 +1,5 @@
 using Assets.Scripts;
+using Ink.Parsed;
 using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,14 +12,14 @@ public class QuestGiver : NPC
     [SerializeField] private FirstPersonController firstPersonController;
     public bool AssignedQuest { get; set; }
 
-    [SerializeField]
-    private GameObject quests;
-    [SerializeField]
-    private OrbCollectionManager orbManager;
+    [SerializeField] private GameObject quests;
+    [SerializeField] private OrbCollectionManager orbManager;
 
     private Quest Quest { get; set; }
 
     private int _questCount = 0;
+
+    [SerializeField] private TextMeshProUGUI _questRewardText;
 
     public override void Interact()
     {
@@ -55,6 +56,12 @@ public class QuestGiver : NPC
     {
         if (Quest.Completed)
         {
+            // show {name} orb unlocked message
+            _questRewardText.text = $"{Quest.OrbReward} orb unlocked";
+            StopAllCoroutines();
+            StartCoroutine(FadeTextToFullAlpha());
+            StartCoroutine(FadeTextToZeroAlpha());
+
             Quest.GiveReward();
             AssignedQuest = false;
             DialogueManager.Instance.AddNewDialogue(Quest.CompleteQuestDialogue(), name);
@@ -70,6 +77,41 @@ public class QuestGiver : NPC
         else
         {
             DialogueManager.Instance.AddNewDialogue(new string[] { "You're still in the middle of helping me. Get back to it!" }, name);
+        }
+    }
+
+    public IEnumerator FadeTextToFullAlpha()
+    {
+        _questRewardText.color = new Color(_questRewardText.color.r,
+                                            _questRewardText.color.g,
+                                            _questRewardText.color.b,
+                                            0);
+
+        while (_questRewardText.color.a < 1.0f)
+        {
+            _questRewardText.color = new Color(_questRewardText.color.r,
+                                                _questRewardText.color.g,
+                                                _questRewardText.color.b,
+            _questRewardText.color.a + (Time.deltaTime / 1.0f));
+            yield return null;
+        }
+    }
+
+    public IEnumerator FadeTextToZeroAlpha()
+    {
+        yield return new WaitForSeconds(2.0f);
+        _questRewardText.color = new Color(_questRewardText.color.r,
+                                            _questRewardText.color.g,
+                                            _questRewardText.color.b,
+                                            1);
+
+        while (_questRewardText.color.a > 0.0f)
+        {
+            _questRewardText.color = new Color(_questRewardText.color.r,
+                                                _questRewardText.color.g,
+                                                _questRewardText.color.b,
+            _questRewardText.color.a - (Time.deltaTime / 1.0f));
+            yield return null;
         }
     }
 }
