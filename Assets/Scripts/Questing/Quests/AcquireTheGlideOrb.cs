@@ -32,6 +32,6 @@ public class AcquireTheGlideOrb : Quest
 
     public override string[] CompleteQuestDialogue()
     {
-        return new string[] { "Dialogue from the base class." };
+        return new string[] { "End dialogue for glide orb." };
     }
 }

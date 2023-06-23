@@ -34,6 +34,6 @@ public class AcquireTheLockOnOrb : Quest
 
     public override string[] CompleteQuestDialogue()
     {
-        return new string[] { "Dialogue from the base class." };
+        return new string[] { "End dialogue for the lock on orb." };
     }
 }

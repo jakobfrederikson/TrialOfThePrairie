@@ -33,6 +33,6 @@ public class AcquireTheDoubleJumpOrb : Quest
 
     public override string[] CompleteQuestDialogue()
     {
-        return new string[] { "Dialogue from the base class." };
+        return new string[] { "End double jump quest dialogue." };
     }
 }
