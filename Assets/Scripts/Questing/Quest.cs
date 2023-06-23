@@ -61,4 +61,14 @@ public class Quest : MonoBehaviour
                 break;
         }
     }
+
+    public virtual string[] StartQuestDialogue()
+    {
+       return new string[] { "Dialogue from the base class." };
+    }
+
+    public virtual string[] CompleteQuestDialogue()
+    {
+        return new string[] { "Dialogue from the base class."};
+    }
 }

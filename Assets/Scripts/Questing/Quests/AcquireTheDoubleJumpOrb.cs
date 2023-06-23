@@ -20,4 +20,19 @@ public class AcquireTheDoubleJumpOrb : Quest
         Goals.ForEach(g => g.Init());
         base.Init();
     }
+
+    public override string[] StartQuestDialogue()
+    {
+        return new string[] {
+                              "Great job on your last quest. You did a task, and you grew as a person.",
+                              "At least, that's one way to think of it.",
+                              "Here's a clue about your next quest... it will HELP you reach new heights!",
+                              "You're going to have to do some exploration to find this orb. Good luck!"
+                            };
+    }
+
+    public override string[] CompleteQuestDialogue()
+    {
+        return new string[] { "Dialogue from the base class." };
+    }
 }

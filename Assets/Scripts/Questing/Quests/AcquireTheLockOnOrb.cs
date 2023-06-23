@@ -21,4 +21,19 @@ public class AcquireTheLockOnOrb : Quest
         Goals.ForEach(g => g.Init());
         base.Init();
     }
+
+    public override string[] StartQuestDialogue()
+    {
+        return new string[] {
+                              "I hope you're having fun with your new gliding ability.",
+                              "You may have noticed some more opaque, smaller orbs around this area.",
+                              "I'm going to help you collect these, with a new power!",
+                              "Head towards the ladder, and start climbing. I'll talk to you more once we're there.",
+                            };
+    }
+
+    public override string[] CompleteQuestDialogue()
+    {
+        return new string[] { "Dialogue from the base class." };
+    }
 }

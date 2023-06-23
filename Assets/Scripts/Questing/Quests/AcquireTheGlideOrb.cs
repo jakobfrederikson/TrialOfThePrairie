@@ -20,4 +20,18 @@ public class AcquireTheGlideOrb : Quest
         Goals.ForEach(g => g.Init());
         base.Init();
     }
+
+    public override string[] StartQuestDialogue()
+    {
+        return new string[] {
+                              "See? I told you that orb would you help you reach new heights!",
+                              "This next orb is to help you see the world .",
+                              "That's another hint. Maybe not my best one.",
+                            };
+    }
+
+    public override string[] CompleteQuestDialogue()
+    {
+        return new string[] { "Dialogue from the base class." };
+    }
 }

@@ -19,4 +19,20 @@ public class AcquireTheSprintOrb : Quest
         Goals.ForEach(g => g.Init());
         base.Init();
     }
+
+    public override string[] StartQuestDialogue()
+    {
+        return new string[] { 
+                              "This is your first quest, and it's very simple.",
+                              "In front of you, I've placed a green orb.",
+                              "Walk into the green orb, and then come back and interact with me.", 
+                              "And guess what, I'll reward you for you work!", 
+                              "Hopefully you'll start to realise what this place is all about."
+                            };
+    }
+
+    public override string[] CompleteQuestDialogue()
+    {
+        return new string[] { "Dialogue from the base class." };
+    }
 }

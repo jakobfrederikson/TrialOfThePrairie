@@ -44,8 +44,10 @@ public class QuestGiver : NPC
             0 => (Quest)quests.AddComponent(System.Type.GetType("AcquireTheSprintOrb")),
             1 => (Quest)quests.AddComponent(System.Type.GetType("AcquireTheDoubleJumpOrb")),
             2 => (Quest)quests.AddComponent(System.Type.GetType("AcquireTheGlideOrb")),
-            3 => (Quest)quests.AddComponent(System.Type.GetType("AcquireTheLockOnOrb"))
+            3 => (Quest)quests.AddComponent(System.Type.GetType("AcquireTheLockOnOrb")),
+            _ => throw new System.Exception("test")
         };
+        DialogueManager.Instance.AddNewDialogue(Quest.StartQuestDialogue(), name);
         Quest.firstPersonController = firstPersonController;        
     }
 
@@ -55,7 +57,7 @@ public class QuestGiver : NPC
         {
             Quest.GiveReward();
             AssignedQuest = false;
-            DialogueManager.Instance.AddNewDialogue(new string[] { "Good job! Here's your reward.", "Come back and there might be some more quests!" }, name);
+            DialogueManager.Instance.AddNewDialogue(Quest.CompleteQuestDialogue(), name);
             _questCount++;
 
             // remove the quest from the quests object
