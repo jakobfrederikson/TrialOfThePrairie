@@ -6,8 +6,8 @@ public class Interactable : MonoBehaviour
 {
     [SerializeField] private GameObject _interactBox;
 
+    public bool _isInteracting = false;
     private bool _playerInTrigger = false;
-    private bool _isInteracting = false;
     private bool _isEnemy;
 
     private void Start()
@@ -39,11 +39,21 @@ public class Interactable : MonoBehaviour
             _interactBox.SetActive(false);
             _isInteracting = false;
         }
+
+        if (!DialogueManager.Instance.PlayerInDialogue && _isInteracting)
+        {
+            ResetInteraction();
+        }
     }
 
     public virtual void Interact()
     {
         Debug.Log("Interacting with base class.");
+    }
+
+    public void ResetInteraction()
+    {
+        _isInteracting = false;
     }
 
     private void OnTriggerEnter(Collider other)
