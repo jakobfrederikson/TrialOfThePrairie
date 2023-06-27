@@ -14,12 +14,16 @@ public class Developer : MonoBehaviour
     private RaycastHit hit;
     private float raycastDistance = 10f;
 
+    public LockToOrb lockToOrbScript;
+
     // Update is called once per frame
     void Update()
     {
         // Give all power ups
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
+            Debug.Log("Unlocking all power ups.");
+            lockToOrbScript.lockOnOrbUnlocked = true;
             firstPersonController.sprintOrbUnlocked = true;
             firstPersonController.doubleJumpOrbUnlocked = true;
             firstPersonController.glideOrbUnlocked = true;

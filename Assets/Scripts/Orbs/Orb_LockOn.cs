@@ -10,4 +10,9 @@ public class Orb_LockOn : Orb
     public override string Name { get; } = "Lock On";
     public override string ID { get; set; } = "4";
     public override OrbType OrbType { get; set; } = OrbType.LockOn;
+
+    private void OnDestroy()
+    {
+        _lockToOrb.lockOnOrbUnlocked = true;
+    }
 }

@@ -78,7 +78,6 @@ public class DialogueManager : MonoBehaviour
 
             PlayerInDialogue = false;
         }
-
     }
 
     IEnumerator TypeSentence (string sentence)
