@@ -21,6 +21,9 @@ public class QuestGiver : NPC
 
     [SerializeField] private TextMeshProUGUI _questRewardText;
 
+    private Coroutine lastTextUpdateRoutine1 = null;
+    private Coroutine lastTextUpdateRoutine2 = null;
+
     public override void Interact()
     {
         base.Interact();
@@ -46,7 +49,7 @@ public class QuestGiver : NPC
             1 => (Quest)quests.AddComponent(System.Type.GetType("AcquireTheDoubleJumpOrb")),
             2 => (Quest)quests.AddComponent(System.Type.GetType("AcquireTheGlideOrb")),
             3 => (Quest)quests.AddComponent(System.Type.GetType("AcquireTheLockOnOrb")),
-            _ => throw new System.Exception("test")
+            _ => throw new System.NotImplementedException("No more quests can be found.")
         };
         DialogueManager.Instance.AddNewDialogue(Quest.StartQuestDialogue(), name);
         Quest.firstPersonController = firstPersonController;        
@@ -58,9 +61,16 @@ public class QuestGiver : NPC
         {
             // show {name} orb unlocked message
             _questRewardText.text = $"{Quest.OrbReward} orb unlocked";
-            StopAllCoroutines();
-            StartCoroutine(FadeTextToFullAlpha());
-            StartCoroutine(FadeTextToZeroAlpha());
+
+            if (lastTextUpdateRoutine1 != null &&
+            lastTextUpdateRoutine2 != null)
+            {
+                StopCoroutine(lastTextUpdateRoutine1);
+                StopCoroutine(lastTextUpdateRoutine2);
+            }
+
+            lastTextUpdateRoutine1 = StartCoroutine(TextCoroutine.Instance.FadeTextToFullAlpha(_questRewardText, 1.5f));
+            lastTextUpdateRoutine2 = StartCoroutine(TextCoroutine.Instance.FadeTextToZeroAlpha(_questRewardText, 1.5f));
 
             Quest.GiveReward();
             AssignedQuest = false;
@@ -77,41 +87,6 @@ public class QuestGiver : NPC
         else
         {
             DialogueManager.Instance.AddNewDialogue(new string[] { "You're still in the middle of helping me. Get back to it!" }, name);
-        }
-    }
-
-    public IEnumerator FadeTextToFullAlpha()
-    {
-        _questRewardText.color = new Color(_questRewardText.color.r,
-                                            _questRewardText.color.g,
-                                            _questRewardText.color.b,
-                                            0);
-
-        while (_questRewardText.color.a < 1.0f)
-        {
-            _questRewardText.color = new Color(_questRewardText.color.r,
-                                                _questRewardText.color.g,
-                                                _questRewardText.color.b,
-            _questRewardText.color.a + (Time.deltaTime / 1.0f));
-            yield return null;
-        }
-    }
-
-    public IEnumerator FadeTextToZeroAlpha()
-    {
-        yield return new WaitForSeconds(2.0f);
-        _questRewardText.color = new Color(_questRewardText.color.r,
-                                            _questRewardText.color.g,
-                                            _questRewardText.color.b,
-                                            1);
-
-        while (_questRewardText.color.a > 0.0f)
-        {
-            _questRewardText.color = new Color(_questRewardText.color.r,
-                                                _questRewardText.color.g,
-                                                _questRewardText.color.b,
-            _questRewardText.color.a - (Time.deltaTime / 1.0f));
-            yield return null;
         }
     }
 }

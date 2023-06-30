@@ -18,11 +18,9 @@ public class CollectibleManager : MonoBehaviour
     public TextMeshProUGUI collectibleText;
     public float transparencyDelay = 1.0f;
 
-    
-
-    Coroutine lastPlayerBoostRoutine = null;
-    Coroutine lastTextUpdateRoutine1 = null;
-    Coroutine lastTextUpdateRoutine2 = null;
+    private Coroutine lastPlayerBoostRoutine = null;
+    private Coroutine lastTextUpdateRoutine1 = null;
+    private Coroutine lastTextUpdateRoutine2 = null;
 
     private void Awake()
     {
@@ -83,8 +81,8 @@ public class CollectibleManager : MonoBehaviour
         
         collectibleText.text = PlayerManager.Instance.CollectibleBalance.ToString();
 
-        lastTextUpdateRoutine1 = StartCoroutine(FadeTextToFullAlpha());
-        lastTextUpdateRoutine2 = StartCoroutine(FadeTextToZeroAlpha());
+        lastTextUpdateRoutine1 = StartCoroutine(TextCoroutine.Instance.FadeTextToFullAlpha(collectibleText, 2.0f));
+        lastTextUpdateRoutine2 = StartCoroutine(TextCoroutine.Instance.FadeTextToZeroAlpha(collectibleText, 2.0f));
     }
 
     private IEnumerator ResetStats()
@@ -98,40 +96,5 @@ public class CollectibleManager : MonoBehaviour
         firstPersonController.SprintSpeed = PlayerManager.Instance.SprintSpeed;
 
         yield return null;
-    }
-
-    public IEnumerator FadeTextToFullAlpha()
-    {
-        collectibleText.color = new Color(collectibleText.color.r,
-                                            collectibleText.color.g,
-                                            collectibleText.color.b,
-                                            0);
-
-        while (collectibleText.color.a < 1.0f)
-        {
-            collectibleText.color = new Color(collectibleText.color.r,
-                                                collectibleText.color.g,
-                                                collectibleText.color.b,
-            collectibleText.color.a + (Time.deltaTime / transparencyDelay));
-            yield return null;
-        }
-    }
-
-    public IEnumerator FadeTextToZeroAlpha()
-    {
-        yield return new WaitForSeconds(2.0f);
-        collectibleText.color = new Color(collectibleText.color.r,
-                                            collectibleText.color.g,
-                                            collectibleText.color.b,
-                                            1);
-
-        while (collectibleText.color.a > 0.0f)
-        {
-            collectibleText.color = new Color(collectibleText.color.r,
-                                                collectibleText.color.g,
-                                                collectibleText.color.b,
-            collectibleText.color.a - (Time.deltaTime / transparencyDelay));
-            yield return null;
-        }
     }
 }
