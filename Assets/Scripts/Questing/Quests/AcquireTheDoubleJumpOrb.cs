@@ -33,6 +33,7 @@ public class AcquireTheDoubleJumpOrb : Quest
 
     public override string[] CompleteQuestDialogue()
     {
-        return new string[] { "End double jump quest dialogue." };
+        return new string[] { "You can now double jump.",
+        "Press your jump button again after the first time to execute this power!"};
     }
 }

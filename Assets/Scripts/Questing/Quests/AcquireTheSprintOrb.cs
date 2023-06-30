@@ -33,6 +33,6 @@ public class AcquireTheSprintOrb : Quest
 
     public override string[] CompleteQuestDialogue()
     {
-        return new string[] { "End sprint orb dialogue." };
+        return new string[] { "You can now press shift to sprint." };
     }
 }

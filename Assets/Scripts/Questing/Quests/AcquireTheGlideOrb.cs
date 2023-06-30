@@ -32,6 +32,6 @@ public class AcquireTheGlideOrb : Quest
 
     public override string[] CompleteQuestDialogue()
     {
-        return new string[] { "End dialogue for glide orb." };
+        return new string[] { "You can now hold space while in mid air to glide." };
     }
 }

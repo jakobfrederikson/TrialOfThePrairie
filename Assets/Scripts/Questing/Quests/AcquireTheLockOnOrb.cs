@@ -34,6 +34,9 @@ public class AcquireTheLockOnOrb : Quest
 
     public override string[] CompleteQuestDialogue()
     {
-        return new string[] { "End dialogue for the lock on orb." };
+        return new string[] { "Great job! Make sure to read this next dialogue!",
+        "Press F to spawn a collectible orb in front of you.",
+        "Now, with the lock on orb acquired, press right click to lock on to the orb.",
+        "Then, press the left click to dash into the orb!" };
     }
 }
