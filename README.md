@@ -2,6 +2,7 @@
 Game for 3rd year Software Engineering, still in progress.
 
 ## How to download
+- Clone this repository and open it from Unity Hub
 
 ## What can you do?
 You can currently interact with the NPC and explore the world. From interacting with the NPC, you will acquire quests and power-ups to your player.
